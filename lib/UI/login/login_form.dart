@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:happyshooping/UI/login/bloc/login_bloc.dart';
 import 'package:happyshooping/Utils/Constant.dart';
 
 class LoginForm extends StatefulWidget {
@@ -11,99 +13,119 @@ class _LoginState extends State<LoginForm> {
   final _passController = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        body: Form(
-      child: Padding(
-        padding: EdgeInsets.only(
-            left: Constant.lrSidePadding,
-            right: Constant.lrSidePadding,
-            top: Constant.topSidePadding),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Text(
-              'Login',
-              style: TextStyle(
-                fontSize: Constant.headingTextSize,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            SizedBox(
-              height: Constant.primarySizedBoxSize,
-            ),
-            //email
-            Text(
-              'Email',
-              style: TextStyle(
-                  fontSize: Constant.primaryTextSize, fontFamily: 'Montserrat'),
-            ),
-            TextFormField(
-              controller: _emailController,
-              decoration: InputDecoration(
-                  hintText: 'example@gmail.com',
-                  hintStyle: TextStyle(fontSize: Constant.hintfontsize)),
-            ),
-            //sizeboxed
-            SizedBox(
-              height: Constant.secondarySizedBoxSize,
-            ),
-            //pass
-            Text(
-              'Password',
-              style: TextStyle(
-                  fontSize: Constant.primaryTextSize, fontFamily: 'Montserrat'),
-            ),
-            TextFormField(
-              controller: _passController,
-              decoration: InputDecoration(
-                hintText: '*********',
-                hintStyle: TextStyle(fontSize: Constant.hintfontsize),
-              ),
-            ),
-            //sizedbox
-            SizedBox(
-              height: Constant.secondarySizedBoxSize,
-            ),
-            //login button
-            Container(
-              height: Constant.containerHeight50,
-              width: double.infinity,
-              child: RaisedButton(
-                onPressed: () {},
-                shape: RoundedRectangleBorder(
-                  borderRadius:
-                      BorderRadius.circular(Constant.borderCircularRadius),
-                ),
-                color: Constant.primaryColor,
-                child: Text(
-                  "Login",
-                  style: TextStyle(
-                      fontSize: Constant.primaryTextSize, color: Colors.white),
+    final loginBloc = BlocProvider.of<LoginBloc>(context);
+    _onLoginButtonPressed() {
+      loginBloc.add(LoginButtonPressed(
+          username: _emailController.text, password: _passController.text));
+    }
+
+    return BlocListener<LoginBloc, LoginState>(
+      listener: (context, state) {
+      if (state is LoginFailure) {
+        Scaffold.of(context).showSnackBar(SnackBar(
+          content: Text(state.error),
+          backgroundColor: Colors.red,
+        ));
+      }
+    }, child: BlocBuilder<LoginBloc, LoginState>(
+      builder: (context, state) {
+      return Form(
+        child: Padding(
+          padding: EdgeInsets.only(
+              left: Constant.lrSidePadding,
+              right: Constant.lrSidePadding,
+              top: Constant.topSidePadding),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Text(
+                'Login',
+                style: TextStyle(
+                  fontSize: Constant.headingTextSize,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
-            ),
-            //sizedbox
-            SizedBox(
-              height: Constant.secondarySizedBoxSize,
-            ),
-            //OR dividor
-            orDividor(),
-            //sizedbox
-            SizedBox(
-              height: Constant.secondarySizedBoxSize,
-            ),
-            //facebook and google login button
-            facebookGoogleButtons(),
-            //sizedbox
-            SizedBox(
-              height: Constant.secondarySizedBoxSize,
-            ),
-            //new user? signup text widget
-            newUserLabelText(),
-          ],
+              SizedBox(
+                height: Constant.primarySizedBoxSize,
+              ),
+              //email
+              Text(
+                'Email',
+                style: TextStyle(
+                    fontSize: Constant.primaryTextSize,
+                    fontFamily: 'Montserrat'),
+              ),
+              TextFormField(
+                controller: _emailController,
+                decoration: InputDecoration(
+                    hintText: 'example@gmail.com',
+                    hintStyle: TextStyle(fontSize: Constant.hintfontsize)),
+              ),
+              //sizeboxed
+              SizedBox(
+                height: Constant.secondarySizedBoxSize,
+              ),
+              //pass
+              Text(
+                'Password',
+                style: TextStyle(
+                    fontSize: Constant.primaryTextSize,
+                    fontFamily: 'Montserrat'),
+              ),
+              TextFormField(
+                controller: _passController,
+                decoration: InputDecoration(
+                  hintText: '*********',
+                  hintStyle: TextStyle(fontSize: Constant.hintfontsize),
+                ),
+              ),
+              //sizedbox
+              SizedBox(
+                height: Constant.secondarySizedBoxSize,
+              ),
+              //login button
+              Container(
+                height: Constant.containerHeight50,
+                width: double.infinity,
+                child: RaisedButton(
+                  onPressed:
+                      state is! LoginInProgress ? _onLoginButtonPressed : null,
+                  shape: RoundedRectangleBorder(
+                    borderRadius:
+                        BorderRadius.circular(Constant.borderCircularRadius),
+                  ),
+                  color: Constant.primaryColor,
+                  child: Text(
+                    "Login",
+                    style: TextStyle(
+                        fontSize: Constant.primaryTextSize,
+                        color: Colors.white),
+                  ),
+                ),
+              ),
+              //sizedbox
+              SizedBox(
+                height: Constant.secondarySizedBoxSize,
+              ),
+              //OR dividor
+              orDividor(),
+              //sizedbox
+              SizedBox(
+                height: Constant.secondarySizedBoxSize,
+              ),
+              //facebook and google login button
+              facebookGoogleButtons(),
+              //sizedbox
+              SizedBox(
+                height: Constant.secondarySizedBoxSize,
+              ),
+              //new user? signup text widget
+              newUserLabelText(),
+            ],
+          ),
         ),
-      ),
-    ));
+      );
+    }));
   }
 
   orDividor() {
