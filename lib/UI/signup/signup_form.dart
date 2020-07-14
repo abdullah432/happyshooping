@@ -1,127 +1,167 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:happyshooping/UI/login/login_page.dart';
 import 'package:happyshooping/Utils/Constant.dart';
+import 'package:happyshooping/bloc/signup/signup_bloc.dart';
+import 'package:happyshooping/repositories/user_repository.dart';
 
 class SignupForm extends StatefulWidget {
+  final UserRepository _userRepository;
+  SignupForm({@required userRepository}) : _userRepository = userRepository;
   @override
-  _SignupState createState() => _SignupState();
+  _SignupState createState() => _SignupState(_userRepository);
 }
 
 class _SignupState extends State<SignupForm> {
+  _SignupState(this._userRepository);
   final _nameController = TextEditingController();
   final _emailController = TextEditingController();
   final _passController = TextEditingController();
+
+  SignupBloc signupBloc;
+  UserRepository _userRepository;
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        body: Form(
-      child: Padding(
-        padding: EdgeInsets.only(
-            left: Constant.lrSidePadding,
-            right: Constant.lrSidePadding,
-            top: Constant.topSidePadding),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Text(
-              'Create an account',
-              style: TextStyle(
-                fontSize: Constant.headingTextSize,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            SizedBox(
-              height: Constant.primarySizedBoxSize,
-            ),
-            //email
-            Text(
-              'Full Name',
-              style: TextStyle(
-                  fontSize: Constant.primaryTextSize, fontFamily: 'Montserrat'),
-            ),
-            TextFormField(
-              controller: _nameController,
-              decoration: InputDecoration(
-                  hintText: 'Abdullah khan',
-                  hintStyle: TextStyle(fontSize: Constant.hintfontsize)),
-            ),
-            //sizeboxed
-            SizedBox(
-              height: Constant.secondarySizedBoxSize,
-            ),
-            //email
-            Text(
-              'Email',
-              style: TextStyle(
-                  fontSize: Constant.primaryTextSize, fontFamily: 'Montserrat'),
-            ),
-            TextFormField(
-              controller: _emailController,
-              decoration: InputDecoration(
-                  hintText: 'example@gmail.com',
-                  hintStyle: TextStyle(fontSize: Constant.hintfontsize)),
-            ),
-            //sizeboxed
-            SizedBox(
-              height: Constant.secondarySizedBoxSize,
-            ),
-            //pass
-            Text(
-              'Password',
-              style: TextStyle(
-                  fontSize: Constant.primaryTextSize, fontFamily: 'Montserrat'),
-            ),
-            TextFormField(
-              controller: _passController,
-              decoration: InputDecoration(
-                hintText: '*********',
-                hintStyle: TextStyle(fontSize: Constant.hintfontsize),
-              ),
-            ),
-            //sizedbox
-            SizedBox(
-              height: Constant.secondarySizedBoxSize,
-            ),
-            //login button
-            Container(
-              height: Constant.containerHeight50,
-              width: double.infinity,
-              child: RaisedButton(
-                onPressed: () {},
-                shape: RoundedRectangleBorder(
-                  borderRadius:
-                      BorderRadius.circular(Constant.borderCircularRadius),
-                ),
-                color: Constant.primaryColor,
-                child: Text(
-                  "Signup",
+    signupBloc = BlocProvider.of<SignupBloc>(context);
+    return BlocListener<SignupBloc, SignupState>(listener: (context, state) {
+      if (state is SignupFailed) {
+        Scaffold.of(context).showSnackBar(SnackBar(
+          content: Text("${state.error}"),
+          backgroundColor: Colors.red,
+        ));
+      }
+
+      if (state is NavigateToLoginPage) {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => LoginPage(userRepository: _userRepository),
+            ));
+      }
+    }, child: BlocBuilder<SignupBloc, SignupState>(
+      builder: (context, state) {
+        return SingleChildScrollView(
+            child: Form(
+          child: Padding(
+            padding: EdgeInsets.only(
+                left: Constant.lrSidePadding,
+                right: Constant.lrSidePadding,
+                top: Constant.topSidePadding),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Text(
+                  'Create an account',
                   style: TextStyle(
-                      fontSize: Constant.primaryTextSize, color: Colors.white),
+                    fontSize: Constant.headingTextSize,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
-              ),
+                SizedBox(
+                  height: Constant.primarySizedBoxSize,
+                ),
+                //email
+                Text(
+                  'Full Name',
+                  style: TextStyle(
+                      fontSize: Constant.primaryTextSize,
+                      fontFamily: 'Montserrat'),
+                ),
+                TextFormField(
+                  controller: _nameController,
+                  decoration: InputDecoration(
+                      hintText: 'Abdullah khan',
+                      hintStyle: TextStyle(fontSize: Constant.hintfontsize)),
+                ),
+                //sizeboxed
+                SizedBox(
+                  height: Constant.secondarySizedBoxSize,
+                ),
+                //email
+                Text(
+                  'Email',
+                  style: TextStyle(
+                      fontSize: Constant.primaryTextSize,
+                      fontFamily: 'Montserrat'),
+                ),
+                TextFormField(
+                  controller: _emailController,
+                  decoration: InputDecoration(
+                      hintText: 'example@gmail.com',
+                      hintStyle: TextStyle(fontSize: Constant.hintfontsize)),
+                ),
+                //sizeboxed
+                SizedBox(
+                  height: Constant.secondarySizedBoxSize,
+                ),
+                //pass
+                Text(
+                  'Password',
+                  style: TextStyle(
+                      fontSize: Constant.primaryTextSize,
+                      fontFamily: 'Montserrat'),
+                ),
+                TextFormField(
+                  controller: _passController,
+                  decoration: InputDecoration(
+                    hintText: '*********',
+                    hintStyle: TextStyle(fontSize: Constant.hintfontsize),
+                  ),
+                ),
+                //sizedbox
+                SizedBox(
+                  height: Constant.secondarySizedBoxSize,
+                ),
+                //login button
+                Container(
+                  height: Constant.containerHeight50,
+                  width: double.infinity,
+                  child: RaisedButton(
+                    onPressed: () {},
+                    shape: RoundedRectangleBorder(
+                      borderRadius:
+                          BorderRadius.circular(Constant.borderCircularRadius),
+                    ),
+                    color: Constant.primaryColor,
+                    child: Text(
+                      "Signup",
+                      style: TextStyle(
+                          fontSize: Constant.primaryTextSize,
+                          color: Colors.white),
+                    ),
+                  ),
+                ),
+                //sizedbox
+                SizedBox(
+                  height: Constant.secondarySizedBoxSize,
+                ),
+                //OR dividor
+                orDividor(),
+                //sizedbox
+                SizedBox(
+                  height: Constant.secondarySizedBoxSize,
+                ),
+                //facebook and google login button
+                facebookGoogleButtons(),
+                //sizedbox
+                SizedBox(
+                  height: Constant.secondarySizedBoxSize,
+                ),
+                //new user? signup text widget
+                haveAnAccountLabel(),
+                //sizedbox
+                SizedBox(
+                  height: Constant.secondarySizedBoxSize,
+                ),
+              ],
             ),
-            //sizedbox
-            SizedBox(
-              height: Constant.secondarySizedBoxSize,
-            ),
-            //OR dividor
-            orDividor(),
-            //sizedbox
-            SizedBox(
-              height: Constant.secondarySizedBoxSize,
-            ),
-            //facebook and google login button
-            facebookGoogleButtons(),
-            //sizedbox
-            SizedBox(
-              height: Constant.secondarySizedBoxSize,
-            ),
-            //new user? signup text widget
-            haveAnAccountLabel(),
-          ],
-        ),
-      ),
+          ),
+        ));
+      },
     ));
   }
+
+  /*.... Widgets start ....*/
 
   orDividor() {
     return Container(
@@ -215,7 +255,7 @@ class _SignupState extends State<SignupForm> {
     return Center(
         child: GestureDetector(
             onTap: () {
-              // navigateToRegisterPage();
+              _onHaveAnAccountLabelClicked();
             },
             child: RichText(
               text: TextSpan(
@@ -236,5 +276,12 @@ class _SignupState extends State<SignupForm> {
                 ],
               ),
             )));
+  }
+
+  /*.... Widgets end ....*/
+
+  //methods
+  _onHaveAnAccountLabelClicked() {
+    signupBloc.add(HaveAnAccountLabelClicked());
   }
 }

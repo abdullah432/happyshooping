@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:happyshooping/Logic/user_repository.dart';
+import 'package:happyshooping/repositories/user_repository.dart';
 import 'package:meta/meta.dart';
 
 part 'authentication_event.dart';

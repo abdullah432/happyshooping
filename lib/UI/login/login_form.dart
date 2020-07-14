@@ -1,35 +1,51 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:happyshooping/UI/login/bloc/login_bloc.dart';
+import 'package:happyshooping/UI/signup/signup_page.dart';
 import 'package:happyshooping/Utils/Constant.dart';
+import 'package:happyshooping/bloc/login/login_bloc.dart';
+import 'package:happyshooping/repositories/user_repository.dart';
 
 class LoginForm extends StatefulWidget {
+  final UserRepository _userRepository;
+  LoginForm({@required userRepository}) : _userRepository = userRepository;
   @override
-  _LoginState createState() => _LoginState();
+  _LoginState createState() => _LoginState(_userRepository);
 }
 
 class _LoginState extends State<LoginForm> {
+  UserRepository _userRepository;
+  _LoginState(this._userRepository);
   final _emailController = TextEditingController();
   final _passController = TextEditingController();
+
+  LoginBloc loginBloc;
   @override
   Widget build(BuildContext context) {
-    final loginBloc = BlocProvider.of<LoginBloc>(context);
+    loginBloc = BlocProvider.of<LoginBloc>(context);
     _onLoginButtonPressed() {
       loginBloc.add(LoginButtonPressed(
-          username: _emailController.text, password: _passController.text));
+          email: _emailController.text, password: _passController.text));
     }
 
-    return BlocListener<LoginBloc, LoginState>(
-      listener: (context, state) {
+    return BlocListener<LoginBloc, LoginState>(listener: (context, state) {
       if (state is LoginFailure) {
         Scaffold.of(context).showSnackBar(SnackBar(
           content: Text(state.error),
           backgroundColor: Colors.red,
         ));
       }
-    }, child: BlocBuilder<LoginBloc, LoginState>(
-      builder: (context, state) {
-      return Form(
+      if (state is NavigateToSignupPage) {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => SignupPage(
+                userRepository: _userRepository,
+              ),
+            ));
+      }
+    }, child: BlocBuilder<LoginBloc, LoginState>(builder: (context, state) {
+      return SingleChildScrollView(
+          child: Form(
         child: Padding(
           padding: EdgeInsets.only(
               left: Constant.lrSidePadding,
@@ -58,8 +74,11 @@ class _LoginState extends State<LoginForm> {
               TextFormField(
                 controller: _emailController,
                 decoration: InputDecoration(
-                    hintText: 'example@gmail.com',
-                    hintStyle: TextStyle(fontSize: Constant.hintfontsize)),
+                  hintText: 'example@gmail.com',
+                  hintStyle: TextStyle(fontSize: Constant.hintfontsize),
+                  errorText:
+                      state is EmailValidationFail ? "Invalid Email" : null,
+                ),
               ),
               //sizeboxed
               SizedBox(
@@ -74,9 +93,13 @@ class _LoginState extends State<LoginForm> {
               ),
               TextFormField(
                 controller: _passController,
+                obscureText: true,
                 decoration: InputDecoration(
                   hintText: '*********',
                   hintStyle: TextStyle(fontSize: Constant.hintfontsize),
+                  errorText: state is PasswordValidationFail
+                      ? "Password must be 6 character long"
+                      : null,
                 ),
               ),
               //sizedbox
@@ -121,12 +144,18 @@ class _LoginState extends State<LoginForm> {
               ),
               //new user? signup text widget
               newUserLabelText(),
+              //sizedbox
+              SizedBox(
+                height: Constant.secondarySizedBoxSize,
+              ),
             ],
           ),
         ),
-      );
+      ));
     }));
   }
+
+  /*.... Widgets start ....*/
 
   orDividor() {
     return Container(
@@ -220,7 +249,7 @@ class _LoginState extends State<LoginForm> {
     return Center(
         child: GestureDetector(
             onTap: () {
-              // navigateToRegisterPage();
+                _onNewUserSignupLabelPressed();
             },
             child: RichText(
               text: TextSpan(
@@ -241,5 +270,13 @@ class _LoginState extends State<LoginForm> {
                 ],
               ),
             )));
+  }
+
+  /*.... Widgets end ....*/
+
+  //methods
+  _onNewUserSignupLabelPressed() {
+    print('newUser?Signup');
+    loginBloc.add(NewUserTextClicked());
   }
 }

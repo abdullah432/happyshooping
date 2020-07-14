@@ -1,18 +1,35 @@
-import 'dart:html';
-import 'dart:js';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:happyshooping/Logic/authentication/authentication_bloc.dart';
-import 'package:happyshooping/Logic/user_repository.dart';
 import 'package:happyshooping/UI/common/loading_indicator.dart';
 import 'package:happyshooping/UI/home.dart';
-import 'package:happyshooping/UI/login/login_form.dart';
 import 'package:happyshooping/UI/login/login_page.dart';
 
 import 'UI/splash_screen.dart';
+import 'bloc/authentication/authentication_bloc.dart';
+import 'repositories/user_repository.dart';
+
+class SimpleBlocObservor extends BlocObserver {
+  @override
+  void onError(Bloc bloc, Object error, StackTrace stackTrace) {
+    print(error);
+    super.onError(bloc, error, stackTrace);
+  }
+
+  @override
+  void onTransition(Bloc bloc, Transition transition) {
+    print(transition);
+    super.onTransition(bloc, transition);
+  }
+
+  @override
+  void onEvent(Bloc bloc, Object event) {
+    print(event);
+    super.onEvent(bloc, event);
+  }
+}
 
 void main() {
+  Bloc.observer = SimpleBlocObservor();
   final UserRepository _userRepository = UserRepository();
   runApp(
     BlocProvider<AuthenticationBloc>(

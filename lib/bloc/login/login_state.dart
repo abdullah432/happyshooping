@@ -9,6 +9,10 @@ abstract class LoginState extends Equatable {
 
 class LoginInitial extends LoginState {}
 
+class EmailValidationFail extends LoginState {}
+
+class PasswordValidationFail extends LoginState {}
+
 class LoginInProgress extends LoginState {}
 
 class LoginFailure extends LoginState {
@@ -18,3 +22,5 @@ class LoginFailure extends LoginState {
   @override
   List<Object> get props => [error];
 }
+
+class NavigateToSignupPage extends LoginState {}
