@@ -36,8 +36,8 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       }
     }
 
-    if (event is NewUserTextClicked) {
-      yield NavigateToSignupPage();
+    if (event is NewUserLoginEvent) {
+      authenticationBloc.add(NewUserAuthEvent());
     }
   }
 }

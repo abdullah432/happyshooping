@@ -18,4 +18,4 @@ class SignupButtonPressed extends SignupEvent {
 
 }
 
-class HaveAnAccountLabelClicked extends SignupEvent {}
+class HaveAnAccountSignupEvent extends SignupEvent {}

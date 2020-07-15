@@ -21,4 +21,3 @@ class SignupFailed extends SignupState {
   List<Object> get props => [error];
 }
 
-class NavigateToLoginPage extends SignupState { }

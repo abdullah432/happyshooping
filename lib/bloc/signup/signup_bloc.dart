@@ -26,14 +26,15 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
             name: event.name, email: event.email, password: event.password);
 
         _authenticationBloc.add(AuthenticationLoggedIn(token: token));
-        yield SignupSuccessed();
+        yield SignupInitial();
       } catch (error) {
         yield SignupFailed(error: error.toString());
       }
     }
 
-    if (event is HaveAnAccountLabelClicked) {
-      yield NavigateToLoginPage();
+    if (event is HaveAnAccountSignupEvent) {
+      _authenticationBloc.add(HaveAnAccountAuthEvent());
     }
+
   }
 }

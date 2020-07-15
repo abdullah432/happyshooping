@@ -31,13 +31,13 @@ class _SignupState extends State<SignupForm> {
         ));
       }
 
-      if (state is NavigateToLoginPage) {
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => LoginPage(userRepository: _userRepository),
-            ));
-      }
+      // if (state is NavigateToLoginPage) {
+      //   Navigator.pushReplacement(
+      //       context,
+      //       MaterialPageRoute(
+      //         builder: (context) => LoginPage(userRepository: _userRepository),
+      //       ));
+      // }
     }, child: BlocBuilder<SignupBloc, SignupState>(
       builder: (context, state) {
         return SingleChildScrollView(
@@ -112,12 +112,14 @@ class _SignupState extends State<SignupForm> {
                 SizedBox(
                   height: Constant.secondarySizedBoxSize,
                 ),
-                //login button
+                //signup button
                 Container(
                   height: Constant.containerHeight50,
                   width: double.infinity,
                   child: RaisedButton(
-                    onPressed: () {},
+                    onPressed: state is! SignupInProgress
+                        ? _onSignupButtonPressed
+                        : null,
                     shape: RoundedRectangleBorder(
                       borderRadius:
                           BorderRadius.circular(Constant.borderCircularRadius),
@@ -282,6 +284,13 @@ class _SignupState extends State<SignupForm> {
 
   //methods
   _onHaveAnAccountLabelClicked() {
-    signupBloc.add(HaveAnAccountLabelClicked());
+    signupBloc.add(HaveAnAccountSignupEvent());
+  }
+
+  _onSignupButtonPressed() {
+    signupBloc.add(SignupButtonPressed(
+        name: _nameController.text,
+        email: _emailController.text,
+        password: _passController.text));
   }
 }

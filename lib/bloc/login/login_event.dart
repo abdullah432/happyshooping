@@ -32,4 +32,4 @@ class LoginButtonPressed extends LoginEvent {
   List<Object> get props => [email, password];
 }
 
-class NewUserTextClicked extends LoginEvent {}
+class NewUserLoginEvent extends LoginEvent {}

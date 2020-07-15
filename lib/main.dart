@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:happyshooping/UI/common/loading_indicator.dart';
 import 'package:happyshooping/UI/home.dart';
 import 'package:happyshooping/UI/login/login_page.dart';
+import 'package:happyshooping/UI/signup/signup_page.dart';
 
 import 'UI/splash_screen.dart';
 import 'bloc/authentication/authentication_bloc.dart';
@@ -60,6 +61,12 @@ class MyApp extends StatelessWidget {
             return HomePage();
           else if (state is AuthenticationFailure)
             return LoginPage(userRepository: _userRespository,);
+          else if (state is NavigateToLoginPage) {
+            return LoginPage(userRepository: _userRespository,);
+          }
+          else if (state is NavigateToSignupPage) {
+            return SignupPage(userRepository: _userRespository,);
+          }
           else if (state is AuthenticationInProgress)
             return LoadingIndicator();
           else

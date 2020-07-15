@@ -22,10 +22,6 @@ class _LoginState extends State<LoginForm> {
   @override
   Widget build(BuildContext context) {
     loginBloc = BlocProvider.of<LoginBloc>(context);
-    _onLoginButtonPressed() {
-      loginBloc.add(LoginButtonPressed(
-          email: _emailController.text, password: _passController.text));
-    }
 
     return BlocListener<LoginBloc, LoginState>(listener: (context, state) {
       if (state is LoginFailure) {
@@ -34,15 +30,15 @@ class _LoginState extends State<LoginForm> {
           backgroundColor: Colors.red,
         ));
       }
-      if (state is NavigateToSignupPage) {
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => SignupPage(
-                userRepository: _userRepository,
-              ),
-            ));
-      }
+      // if (state is NavigateToSignupPage) {
+      //   Navigator.push(
+      //       context,
+      //       MaterialPageRoute(
+      //         builder: (context) => SignupPage(
+      //           userRepository: _userRepository,
+      //         ),
+      //       ));
+      // }
     }, child: BlocBuilder<LoginBloc, LoginState>(builder: (context, state) {
       return SingleChildScrollView(
           child: Form(
@@ -249,7 +245,7 @@ class _LoginState extends State<LoginForm> {
     return Center(
         child: GestureDetector(
             onTap: () {
-                _onNewUserSignupLabelPressed();
+              _onNewUserSignupLabelPressed();
             },
             child: RichText(
               text: TextSpan(
@@ -277,6 +273,11 @@ class _LoginState extends State<LoginForm> {
   //methods
   _onNewUserSignupLabelPressed() {
     print('newUser?Signup');
-    loginBloc.add(NewUserTextClicked());
+    loginBloc.add(NewUserLoginEvent());
+  }
+
+  _onLoginButtonPressed() {
+    loginBloc.add(LoginButtonPressed(
+        email: _emailController.text, password: _passController.text));
   }
 }

@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:happyshooping/bloc/signup/signup_bloc.dart';
 import 'package:happyshooping/repositories/user_repository.dart';
 import 'package:meta/meta.dart';
 
@@ -33,6 +34,14 @@ class AuthenticationBloc
       yield AuthenticationInProgress();
       await _userRepository.deleteToken();
       yield AuthenticationFailure();
+    }
+
+    if (event is HaveAnAccountAuthEvent) {
+      yield NavigateToLoginPage();
+    }
+
+    if (event is NewUserAuthEvent) {
+      yield NavigateToSignupPage();
     }
   }
 }

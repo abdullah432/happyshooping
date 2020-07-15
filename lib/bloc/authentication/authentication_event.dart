@@ -18,3 +18,7 @@ class AuthenticationLoggedIn extends AuthenticationEvent {
 }
 
 class AuthenticationLoggedOut extends AuthenticationEvent {}
+
+class HaveAnAccountAuthEvent extends AuthenticationEvent {}
+
+class NewUserAuthEvent extends AuthenticationEvent {}
