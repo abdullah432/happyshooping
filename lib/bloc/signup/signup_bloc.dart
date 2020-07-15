@@ -22,11 +22,14 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
       yield SignupInProgress();
 
       try {
-        final token = await _userRepository.signup(
+        final result = await _userRepository.signup(
             name: event.name, email: event.email, password: event.password);
-
-        _authenticationBloc.add(AuthenticationLoggedIn(token: token));
-        yield SignupInitial();
+        if (result == 'success') {
+          _authenticationBloc.add(AuthenticationLoggedIn());
+          yield SignupInitial();
+        } else {
+          yield SignupFailed(error: result.toString());
+        }
       } catch (error) {
         yield SignupFailed(error: error.toString());
       }
@@ -35,6 +38,5 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
     if (event is HaveAnAccountSignupEvent) {
       _authenticationBloc.add(HaveAnAccountAuthEvent());
     }
-
   }
 }

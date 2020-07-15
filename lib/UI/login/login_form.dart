@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:happyshooping/UI/common/loading_indicator.dart';
 import 'package:happyshooping/UI/signup/signup_page.dart';
 import 'package:happyshooping/Utils/Constant.dart';
 import 'package:happyshooping/bloc/login/login_bloc.dart';
@@ -122,6 +123,7 @@ class _LoginState extends State<LoginForm> {
                   ),
                 ),
               ),
+              state is LoginInProgress ? loadingIndicator() : Container(),
               //sizedbox
               SizedBox(
                 height: Constant.secondarySizedBoxSize,
@@ -152,6 +154,15 @@ class _LoginState extends State<LoginForm> {
   }
 
   /*.... Widgets start ....*/
+
+  loadingIndicator() {
+    return Center(
+        child: Padding(
+          padding: const EdgeInsets.only(top: Constant.secondarySizedBoxSize),
+          child: CircularProgressIndicator(),
+        ),
+      );
+  }
 
   orDividor() {
     return Container(

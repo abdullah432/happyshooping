@@ -25,11 +25,21 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         yield PasswordValidationFail();
       } else {
         yield LoginInProgress();
+        print("before try");
         try {
-          final token =
-              await userRepository.authenticate(event.email, event.password);
-          authenticationBloc.add(AuthenticationLoggedIn(token: token));
-          yield LoginInitial();
+          //authenticate will return success or errorText
+          final result = await userRepository.authenticate(
+              email: event.email, password: event.password);
+
+          print("result: "+result.toString());
+          if (result == "success") {
+            authenticationBloc.add(AuthenticationLoggedIn());
+            yield LoginInitial();
+          }
+          else {
+            yield LoginFailure(error: result.toString());
+          }
+          
         } catch (error) {
           yield LoginFailure(error: error.toString());
         }

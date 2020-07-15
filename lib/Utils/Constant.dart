@@ -10,7 +10,7 @@ class Constant {
   static double hintfontsize = 15.0;
   //sizedbox
   static double primarySizedBoxSize = 40;
-  static double secondarySizedBoxSize = 30;
+  static const double secondarySizedBoxSize = 30;
   //color
   static Color primaryColor = Color.fromRGBO(220, 116, 217, 100);
   //border
