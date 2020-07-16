@@ -133,6 +133,7 @@ class _SignupState extends State<SignupForm> {
                     ),
                   ),
                 ),
+                state is SignupInProgress ? loadingIndicator() : Container(),
                 //sizedbox
                 SizedBox(
                   height: Constant.secondarySizedBoxSize,
@@ -164,6 +165,15 @@ class _SignupState extends State<SignupForm> {
   }
 
   /*.... Widgets start ....*/
+
+  loadingIndicator() {
+    return Center(
+        child: Padding(
+          padding: const EdgeInsets.only(top: Constant.secondarySizedBoxSize),
+          child: CircularProgressIndicator(),
+        ),
+      );
+  }
 
   orDividor() {
     return Container(

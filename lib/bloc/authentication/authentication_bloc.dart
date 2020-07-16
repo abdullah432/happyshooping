@@ -16,12 +16,16 @@ class AuthenticationBloc
   Stream<AuthenticationState> mapEventToState(
       AuthenticationEvent event) async* {
     if (event is AuthenticationStarted) {
+      try {
       final bool hasToken = await _userRepository.hasToken();
 
       if (hasToken)
         yield AuthenticationSuccess();
       else
         yield AuthenticationFailure();
+      }catch(error) {
+        print("AuthBloc Exception: "+error.toString());
+      }
     }
 
     if (event is AuthenticationLoggedIn) {
