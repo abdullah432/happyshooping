@@ -7,7 +7,7 @@ import 'package:meta/meta.dart';
 class UserRepository {
   // Create storage
   final _storage = FlutterSecureStorage();
-  var _url = 'http://192.168.10.4:9000/api/user/';
+  var _url = 'http://localhost:9000/api/user/';
   Future<String> authenticate(
       {@required String email, @required String password}) async {
     //login login here

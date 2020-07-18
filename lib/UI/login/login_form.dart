@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:happyshooping/UI/common/loading_indicator.dart';
-import 'package:happyshooping/UI/signup/signup_page.dart';
 import 'package:happyshooping/Utils/Constant.dart';
 import 'package:happyshooping/bloc/login/login_bloc.dart';
 import 'package:happyshooping/repositories/user_repository.dart';
@@ -44,7 +42,7 @@ class _LoginState extends State<LoginForm> {
       return SingleChildScrollView(
           child: Form(
         child: Padding(
-          padding: EdgeInsets.only(
+          padding: const EdgeInsets.only(
               left: Constant.lrSidePadding,
               right: Constant.lrSidePadding,
               top: Constant.topSidePadding),
