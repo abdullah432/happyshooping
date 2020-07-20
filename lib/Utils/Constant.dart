@@ -19,6 +19,8 @@ class Constant {
   static Color customColor1 = Color.fromRGBO(173, 200, 224, 100);
   static Color customColor2 = Color.fromRGBO(254, 204, 197, 100);
   static Color customColor3 = Color.fromRGBO(168, 229, 218, 100);
+  static Color customColor4 = Color.fromRGBO(246, 246, 254, 100);
+  static Color customColor5 = Color.fromRGBO(252, 236, 223, 100);
   //border
   static double borderCircularRadius = 15.0;
   //container

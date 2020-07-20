@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:happyshooping/UI/home/custom_search_sliverheader.dart';
 import 'package:happyshooping/UI/home/search_bar_widget.dart';
 import 'package:happyshooping/Utils/Constant.dart';
 
@@ -27,8 +26,7 @@ class _HomePageState extends State<HomePage> {
   ];
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        body: CustomScrollView(
+    return  CustomScrollView(
       slivers: [
         SliverAppBar(
           floating: true,
@@ -48,7 +46,7 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
       ],
-    ));
+    );
   }
 
   //horizontal list containing stores

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:happyshooping/UI/home/home.dart';
+import 'package:happyshooping/UI/home.dart';
 import 'package:happyshooping/UI/login/login_page.dart';
 import 'package:happyshooping/UI/signup/signup_page.dart';
 
@@ -57,7 +57,7 @@ class MyApp extends StatelessWidget {
       home: BlocBuilder<AuthenticationBloc, AuthenticationState>(
         builder: (context, state) {
           if (state is AuthenticationSuccess)
-            return HomePage();
+            return Home();
           else if (state is AuthenticationFailure)
             return LoginPage(userRepository: _userRespository,);
           else if (state is NavigateToLoginPage) {
