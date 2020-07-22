@@ -14,13 +14,13 @@ class Constant {
   static const double sizedBoxSize20 = 20;
   static const double sizedBoxSize10 = 10;
   //color
-  static Color primaryColor = Color.fromRGBO(220, 116, 217, 100);
-  static Color highlightedColor = Color.fromRGBO(75, 75, 75, 100);
-  static Color customColor1 = Color.fromRGBO(173, 200, 224, 100);
-  static Color customColor2 = Color.fromRGBO(254, 204, 197, 100);
-  static Color customColor3 = Color.fromRGBO(168, 229, 218, 100);
-  static Color customColor4 = Color.fromRGBO(246, 246, 254, 100);
-  static Color customColor5 = Color.fromRGBO(252, 236, 223, 100);
+  static Color primaryColor = Color.fromRGBO(220, 116, 217, 1.0);
+  static Color highlightedColor = Color.fromRGBO(75, 75, 75, 1.0);
+  static Color customColor1 = Color.fromRGBO(173, 200, 224, 1.0);
+  static Color customColor2 = Color.fromRGBO(254, 204, 197, 1.0);
+  static Color customColor3 = Color.fromRGBO(168, 229, 218, 1.0);
+  static Color customColor4 = Color.fromRGBO(246, 246, 254, 1.0);
+  static Color customColor5 = Color.fromRGBO(252, 236, 223, 1.0);
   //border
   static double borderCircularRadius = 15.0;
   //container
