@@ -13,9 +13,10 @@ class Constant {
   static const double secondarySizedBoxSize = 30;
   static const double sizedBoxSize20 = 20;
   static const double sizedBoxSize10 = 10;
+  static const double sizedBoxSize5 = 5;
   //color
   static Color primaryColor = Color.fromRGBO(220, 116, 217, 1.0);
-  static Color highlightedColor = Color.fromRGBO(75, 75, 75, 1.0);
+  static Color highlightedColor = Color.fromRGBO(175, 175, 175, 1.0);
   static Color customColor1 = Color.fromRGBO(173, 200, 224, 1.0);
   static Color customColor2 = Color.fromRGBO(254, 204, 197, 1.0);
   static Color customColor3 = Color.fromRGBO(168, 229, 218, 1.0);

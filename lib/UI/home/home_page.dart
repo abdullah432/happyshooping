@@ -1,4 +1,6 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:happyshooping/UI/common/remove_scrollglow.dart';
 import 'package:happyshooping/UI/display_products.dart';
 import 'package:happyshooping/UI/home/search_bar_widget.dart';
@@ -37,14 +39,13 @@ class _HomePageState extends State<HomePage> {
         id: '3',
         name: 'Carrefour',
         iconUrl:
-            'https://w0.pngwave.com/png/805/111/dubai-logo-carrefour-retail-company-c-png-clip-art.png',
+            'https://1000logos.net/wp-content/uploads/2019/05/Lowe%E2%80%99s-Logo.png',
         address: 'GeoPoint',
         categories: ['Near You', 'Grocery', 'Electronics']),
     Store(
         id: '4',
         name: 'Jalal Sons',
-        iconUrl:
-            '',
+        iconUrl: 'https://ipc-me.com/uploads/bran-partners-noborder1.png',
         address: 'GeoPoint',
         categories: ['Grocery', 'Clothes', 'Electronics']),
   ];
@@ -139,7 +140,10 @@ class _HomePageState extends State<HomePage> {
                               flex: 5,
                               child: GestureDetector(
                                 onTap: () {
-                                  navigateToDisplayProductPage(filteredCategories[vLindex][hLindex].id);
+                                  navigateToDisplayProductPage(
+                                      filteredCategories[vLindex][hLindex].id,
+                                      filteredCategories[vLindex][hLindex]
+                                          .name);
                                 },
                                 child: Container(
                                   width: 130.0,
@@ -148,8 +152,19 @@ class _HomePageState extends State<HomePage> {
                                         ? Constant.customColor1
                                         : Constant.customColor2,
                                     margin: const EdgeInsets.all(10),
-                                    child: Center(
-                                      child: const Icon(Icons.ac_unit),
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Center(
+                                        child: CachedNetworkImage(
+                                          imageUrl: filteredCategories[vLindex]
+                                                  [hLindex]
+                                              .iconUrl,
+                                          placeholder: (context, url) =>
+                                              const SpinKitThreeBounce(color: Colors.white, size: 20.0,),
+                                          errorWidget: (context, url, error) =>
+                                              Icon(Icons.error),
+                                        ),
+                                      ),
                                     ),
                                   ),
                                 ),
@@ -171,9 +186,12 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  navigateToDisplayProductPage(pId) {
+  navigateToDisplayProductPage(pId, storename) {
     Navigator.push(context, MaterialPageRoute(builder: (context) {
-      return DisplayProducts(id: pId,);
+      return DisplayProducts(
+        id: pId,
+        storename: storename,
+      );
     }));
   }
 }
