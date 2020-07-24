@@ -30,6 +30,8 @@ dependencies:
   flutter_icons: ^1.1.0
   cached_network_image: ^2.2.0+1
   flutter_spinkit: ^4.1.2+1
+  rive: ^0.0.3
+  flare_flutter: ^2.0.5
   
 
   # The following adds the Cupertino Icons font to your application.
@@ -52,8 +54,8 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-  # assets:
-  #   - images/a_dot_burr.jpeg
+  assets:
+     - assets/rive/checkbox.flr
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

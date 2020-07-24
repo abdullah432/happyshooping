@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:happyshooping/UI/product_detail.dart';
 import 'package:happyshooping/Utils/Constant.dart';
 import 'package:happyshooping/models/product.dart';
 
@@ -84,67 +85,75 @@ class _DisplayProductsState extends State<DisplayProducts> {
         children: List.generate(_listOfProduct.length, (index) {
           return Stack(
             children: [
-              Card(
-                margin: const EdgeInsets.all(10),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(15.0),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Flexible(
-                        flex: 3,
-                        child: Center(
-                          child: CachedNetworkImage(
-                            imageUrl: _listOfProduct[index].imageUrl,
-                            placeholder: (context, url) =>
-                                const SpinKitThreeBounce(
-                              color: Colors.black,
-                              size: 20.0,
-                            ),
-                            errorWidget: (context, url, error) => Icon(
-                              Icons.error,
-                              color: Colors.black,
+              GestureDetector(
+                onTap: () =>
+                    navigateToProductDetailPage(index, _listOfProduct[index]),
+                child: Card(
+                  margin: const EdgeInsets.all(10),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15.0),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Flexible(
+                          flex: 3,
+                          child: Center(
+                            child: Hero(
+                              tag: 'tag$index',
+                              child: CachedNetworkImage(
+                                imageUrl: _listOfProduct[index].imageUrl,
+                                placeholder: (context, url) =>
+                                    const SpinKitThreeBounce(
+                                  color: Colors.black,
+                                  size: 20.0,
+                                ),
+                                errorWidget: (context, url, error) => Icon(
+                                  Icons.error,
+                                  color: Colors.black,
+                                ),
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                      Flexible(
-                          flex: 1,
-                          child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Flexible(
-                                  child: Text(
-                                      'Rs. ${_listOfProduct[index].cashback}  cashback',
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                      )),
-                                ),
-                                Flexible(
-                                  child: Text(
-                                    'Rs. ${_listOfProduct[index].totalPrice}',
-                                    style: TextStyle(
-                                        color: Colors.green, fontSize: 11.0),
+                        Flexible(
+                            flex: 1,
+                            child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Flexible(
+                                    child: Text(
+                                        'Rs. ${_listOfProduct[index].cashback}  cashback',
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                        )),
                                   ),
-                                ),
-                              ])),
-                      SizedBox(
-                        height: Constant.sizedBoxSize5,
-                      ),
-                      Flexible(
-                          flex: 1,
-                          child: Text(
-                            _listOfProduct[index].description,
-                            maxLines: 2,
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyle(
-                              color: Constant.highlightedColor,
-                            ),
-                          ))
-                    ],
+                                  Flexible(
+                                    child: Text(
+                                      'Rs. ${_listOfProduct[index].totalPrice}',
+                                      style: TextStyle(
+                                          color: Colors.green, fontSize: 11.0),
+                                    ),
+                                  ),
+                                ])),
+                        SizedBox(
+                          height: Constant.sizedBoxSize5,
+                        ),
+                        Flexible(
+                            flex: 1,
+                            child: Text(
+                              _listOfProduct[index].description,
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                color: Constant.highlightedColor,
+                              ),
+                            ))
+                      ],
+                    ),
                   ),
                 ),
               ),
@@ -153,7 +162,9 @@ class _DisplayProductsState extends State<DisplayProducts> {
                 top: 20.0,
                 right: 20.0,
                 child: CircleButton(
-                    iconData: inCart ? FlutterIcons.md_checkmark_ion : FlutterIcons.md_add_ion,
+                    iconData: inCart
+                        ? FlutterIcons.md_checkmark_ion
+                        : FlutterIcons.md_add_ion,
                     onTap: () {
                       print('add to cart');
                       if (inCart)
@@ -161,9 +172,7 @@ class _DisplayProductsState extends State<DisplayProducts> {
                       else
                         inCart = true;
 
-                      setState(() {
-                        
-                      });
+                      setState(() {});
                     },
                     iconSize: 20.0,
                     backgroundColor: inCart ? Colors.green : Colors.black38),
@@ -173,5 +182,16 @@ class _DisplayProductsState extends State<DisplayProducts> {
         }),
       ),
     );
+  }
+
+  //method
+  navigateToProductDetailPage(index, product) {
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => ProductDetail(
+                  tagIndex: index,
+                  product: product,
+                )));
   }
 }
