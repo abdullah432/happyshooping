@@ -8,7 +8,7 @@ class Product {
   int _cashback;
   List<String> _categories;
 
-  Product.init(
+  Product(
       {
       @required id,
       @required name,
@@ -33,6 +33,18 @@ class Product {
   get totalPrice => _totalPrice;
   get cashback => _cashback;
   List<String> get categories => _categories;
+
+  factory Product.fromJson(Map<String, dynamic> json) {
+    return Product(
+        id: json["_id"],
+        name: json["name"],
+        imageUrl: json["imageUrl"],
+        categories: json["categories"].cast<String>(),
+        description: json["description"],
+        cashback: json["cashback"],
+        totalPrice: json["price"]
+        );
+  }
 
   @override
   String toString() {

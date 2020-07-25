@@ -29,15 +29,6 @@ class _LoginState extends State<LoginForm> {
           backgroundColor: Colors.red,
         ));
       }
-      // if (state is NavigateToSignupPage) {
-      //   Navigator.push(
-      //       context,
-      //       MaterialPageRoute(
-      //         builder: (context) => SignupPage(
-      //           userRepository: _userRepository,
-      //         ),
-      //       ));
-      // }
     }, child: BlocBuilder<LoginBloc, LoginState>(builder: (context, state) {
       return SingleChildScrollView(
           child: Form(
@@ -155,11 +146,11 @@ class _LoginState extends State<LoginForm> {
 
   loadingIndicator() {
     return Center(
-        child: Padding(
-          padding: const EdgeInsets.only(top: Constant.secondarySizedBoxSize),
-          child: CircularProgressIndicator(),
-        ),
-      );
+      child: Padding(
+        padding: const EdgeInsets.only(top: Constant.secondarySizedBoxSize),
+        child: CircularProgressIndicator(),
+      ),
+    );
   }
 
   orDividor() {

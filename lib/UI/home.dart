@@ -1,10 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:happyshooping/UI/account/account.dart';
-import 'package:happyshooping/UI/home/home_page.dart';
 import 'package:happyshooping/UI/submit_receipt/submit_receipt.dart';
 import 'package:happyshooping/Utils/Constant.dart';
 import 'package:flutter_icons/flutter_icons.dart';
+
+import 'home/home_page.dart';
 
 class Home extends StatefulWidget {
   @override

@@ -19,12 +19,11 @@ class AuthenticationBloc
       try {
       final bool hasToken = await _userRepository.hasToken();
 
-      yield AuthenticationSuccess();
-
-      // if (hasToken)
-      //   yield AuthenticationSuccess();
-      // else
-      //   yield AuthenticationFailure();
+      if (hasToken)
+        yield AuthenticationSuccess();
+      else
+        yield AuthenticationFailure();
+        
       }catch(error) {
         print("AuthBloc Exception: "+error.toString());
       }

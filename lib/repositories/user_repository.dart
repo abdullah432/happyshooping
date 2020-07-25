@@ -1,13 +1,19 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:dio/dio.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:happyshooping/models/user.dart';
 import 'package:http/http.dart' as http;
 import 'package:meta/meta.dart';
 
 class UserRepository {
   // Create storage
   final _storage = FlutterSecureStorage();
-  var _url = 'http://localhost:9000/api/user/';
+  //for web
+  // var _url = 'http://localhost:9000/api/user/';
+  //for mobile
+  var _url = 'http://192.168.10.4:9000/api/user/';
+
   Future<String> authenticate(
       {@required String email, @required String password}) async {
     //login login here
@@ -114,16 +120,21 @@ class UserRepository {
     /// read from keystore/keychain
     // Read value
     try {
-    String value = await _storage.read(key: "token");
-    print('hastoken: '+value);
-    if (value == null)
-      return false;
-    else
-      return true;
-    }catch(error) {
-      print("hasToken exception: "+error.toString());
+      String value = await _storage.read(key: "token");
+      print('hastoken: ' + value);
+      if (value == null)
+        return false;
+      else
+        return true;
+    } catch (error) {
+      print("hasToken exception: " + error.toString());
       print("Key is not store yet");
       return false;
     }
+  }
+
+  void loadUserData(id) async{
+    Response response = await Dio().post(_url+'/$id');
+    User.fromJson(response.data["data"]);
   }
 }

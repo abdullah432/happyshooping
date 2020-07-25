@@ -8,14 +8,12 @@ class Store {
   List<String> _categories;
 
   Store(
-      {
-      @required id,
+      {@required id,
       @required name,
       @required iconUrl,
       @required address,
       @required categories})
-      : 
-        this._id = id,
+      : this._id = id,
         this._name = name,
         this._iconUrl = iconUrl,
         this._address = address,
@@ -27,9 +25,24 @@ class Store {
   get address => _address;
   List<String> get categories => _categories;
 
-  @override
-  String toString() {
-    return 'name: '+_name+'\n iconUrl: '+_iconUrl+'\n address: '+_address+'\n categories: '+_categories.toString();
+  factory Store.fromJson(Map<String, dynamic> json) {
+    return Store(
+        id: json["_id"],
+        name: json["name"],
+        address: json["address"],
+        categories: json["categories"].cast<String>(),
+        iconUrl: json["iconUrl"]);
   }
 
+  @override
+  String toString() {
+    return 'name: ' +
+        _name +
+        '\n iconUrl: ' +
+        _iconUrl +
+        '\n address: ' +
+        _address +
+        '\n categories: ' +
+        _categories.toString();
+  }
 }
