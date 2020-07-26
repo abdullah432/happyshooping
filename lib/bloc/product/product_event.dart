@@ -13,3 +13,11 @@ class FetchProduct extends ProductEvent {
   @override
   List<Object> get props => [storeID];
 }
+
+class AddToCart extends ProductEvent { 
+  final productid;
+  const AddToCart({@required this.productid});
+
+  @override
+  List<Object> get props => [productid];
+}

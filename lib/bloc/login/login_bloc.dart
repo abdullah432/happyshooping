@@ -30,7 +30,6 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
           final result = await userRepository.authenticate(
               email: event.email, password: event.password);
 
-          print("result: " + result.toString());
           if (result == "success") {
             authenticationBloc.add(AuthenticationLoggedIn());
             yield LoginInitial();

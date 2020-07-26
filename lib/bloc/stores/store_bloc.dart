@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:happyshooping/repositories/store_repository.dart';
@@ -22,7 +24,10 @@ class StoreBloc extends Bloc<StoreEvent, StoreState> {
         final filteredCategories = storeRepository.filteredCategories(storesList);
         
         yield FetchStoresSuccess(filteredCategoriesList: filteredCategories);
-      } catch (error) {
+      } on SocketException catch(_) {
+        yield FetchStoresFail(error: "Connection Failed. Please check Your Internet connection");
+      }
+       catch (error) {
         print(error);
         yield FetchStoresFail(error: 'Fail to laod data. Please try again\nOr Report the issue');
       }

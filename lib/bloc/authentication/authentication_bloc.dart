@@ -17,13 +17,13 @@ class AuthenticationBloc
       AuthenticationEvent event) async* {
     if (event is AuthenticationStarted) {
       try {
-      final bool hasToken = await _userRepository.hasToken();
+      final bool hasToken = await _userRepository.hasLoggedIn();
 
       if (hasToken)
         yield AuthenticationSuccess();
       else
         yield AuthenticationFailure();
-        
+
       }catch(error) {
         print("AuthBloc Exception: "+error.toString());
       }

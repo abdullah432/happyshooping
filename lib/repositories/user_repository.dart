@@ -9,10 +9,11 @@ import 'package:meta/meta.dart';
 class UserRepository {
   // Create storage
   final _storage = FlutterSecureStorage();
+  User user = User();
   //for web
   // var _url = 'http://localhost:9000/api/user/';
   //for mobile
-  var _url = 'http://192.168.10.4:9000/api/user/';
+  var _url = 'http://192.168.10.3:9000/api/user/';
 
   Future<String> authenticate(
       {@required String email, @required String password}) async {
@@ -30,7 +31,8 @@ class UserRepository {
       if (response.statusCode == 200) {
         final jsonDecode = json.decode(response.body);
         final token = jsonDecode["token"];
-        saveToken(token);
+        final userid = jsonDecode["userid"];
+        saveTokenAndID(token, userid);
         return "success";
       } else if (response.statusCode == 403) {
         final jsonDecode = json.decode(response.body);
@@ -76,7 +78,8 @@ class UserRepository {
       if (response.statusCode == 200) {
         final jsonDecode = json.decode(response.body);
         final token = jsonDecode["token"];
-        saveToken(token);
+        final userid = jsonDecode["userid"];
+        saveTokenAndID(token, userid);
         return "success";
       } else if (response.statusCode == 403) {
         final jsonDecode = json.decode(response.body);
@@ -107,25 +110,27 @@ class UserRepository {
     return;
   }
 
-  Future<void> saveToken(String token) async {
-    /// write to keystore/keychain
-    // Write value
+  Future<void> saveTokenAndID(String token, String userid) async {
+    //When user signin or signup then we will also update user.id. So we can retrieve cart etc ...
+    user.id = userid;
+    // write to keystore/keychain
     await _storage.write(key: "token", value: token);
-
-    print("token: " + token);
+    await _storage.write(key: "userid", value: userid);
     return;
   }
 
-  Future<bool> hasToken() async {
+  Future<bool> hasLoggedIn() async {
     /// read from keystore/keychain
     // Read value
     try {
-      String value = await _storage.read(key: "token");
-      print('hastoken: ' + value);
-      if (value == null)
-        return false;
-      else
+      String token = await _storage.read(key: "token");
+      String userid = await _storage.read(key: "userid");
+      if (token != null && userid != null) {
+        user.id = userid;
         return true;
+      }
+      else
+        return false;
     } catch (error) {
       print("hasToken exception: " + error.toString());
       print("Key is not store yet");

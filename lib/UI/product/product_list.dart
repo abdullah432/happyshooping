@@ -4,6 +4,7 @@ import 'package:flutter_icons/flutter_icons.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:happyshooping/UI/product_detail.dart';
 import 'package:happyshooping/Utils/Constant.dart';
+import 'package:happyshooping/models/cart.dart';
 import 'package:happyshooping/models/product.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:happyshooping/bloc/product/product_bloc.dart';
@@ -18,45 +19,25 @@ class ProductList extends StatefulWidget {
 }
 
 class _ProductListState extends State<ProductList> {
-  //dumy data
-  bool inCart = true;
 
+  bool pInCartExists;
   List<Product> _listOfProduct = List();
+  Cart _cart = Cart();
 
-  // List<Product> _listOfProduct = [
-  //   Product(
-  //       id: '1',
-  //       name: '',
-  //       description:
-  //           'Soft Sillicone Airpods Pro Case For Apple Pro - Black/Green/Red/Brown',
-  //       totalPrice: 180,
-  //       cashback: 20,
-  //       imageUrl: 'https://static-01.daraz.pk/p/81f1ae1bcc3719b0771c1048e10cc13c.jpg',
-  //       categories: ['technology']),
-  //   Product(
-  //       id: '2',
-  //       name: '',
-  //       description: 'Spinach Per 500GM',
-  //       totalPrice: 28,
-  //       cashback: 8,
-  //       imageUrl:
-  //           'https://cdn.metro-online.pk/dashboard/prod-pic/LHE-01262/12620266-0-A.jpg',
-  //       categories: ['grocery', 'vegetables']),
-  //   Product(
-  //       id: '3',
-  //       name: '',
-  //       description: 'Haleeb Milk 250ML',
-  //       totalPrice: 35,
-  //       cashback: 5,
-  //       imageUrl:
-  //           'https://cdn.metro-online.pk/dashboard/prod-pic/LHE-01262/12623022-0-M.jpg',
-  //       categories: ['grocery', 'vegetables']),
-  // ];
+  ProductBloc _productBloc;
 
   @override
   Widget build(BuildContext context) {
+    _productBloc = BlocProvider.of<ProductBloc>(context);
     return BlocListener<ProductBloc, ProductState>(listener: (context, state) {
       if (state is ProductFetchFail) {
+        Scaffold.of(context).showSnackBar(SnackBar(
+          content: Text(state.error),
+          backgroundColor: Colors.red,
+        ));
+      }
+
+      if (state is AddToCartFail) {
         Scaffold.of(context).showSnackBar(SnackBar(
           content: Text(state.error),
           backgroundColor: Colors.red,
@@ -69,7 +50,11 @@ class _ProductListState extends State<ProductList> {
 
       if (state is ProductFetchSuccess) {
         _listOfProduct = state.listOfProduct;
-        print(_listOfProduct);
+        return listOfProduct();
+      }
+
+      if (state is AddToCartSuccess) {
+        _listOfProduct = state.listOfProduct;
         return listOfProduct();
       }
 
@@ -80,10 +65,12 @@ class _ProductListState extends State<ProductList> {
   }
 
   listOfProduct() {
+    print('happened');
     return GridView.count(
       crossAxisCount: 2,
       childAspectRatio: 4 / 5,
       children: List.generate(_listOfProduct.length, (index) {
+        pInCartExists = inCart(_listOfProduct[index].id);
         return Stack(
           children: [
             GestureDetector(
@@ -162,25 +149,32 @@ class _ProductListState extends State<ProductList> {
               top: 20.0,
               right: 20.0,
               child: CircleButton(
-                  iconData: inCart
+                  iconData: pInCartExists
                       ? FlutterIcons.md_checkmark_ion
                       : FlutterIcons.md_add_ion,
                   onTap: () {
-                    print('add to cart');
-                    if (inCart)
-                      inCart = false;
-                    else
-                      inCart = true;
-
-                    setState(() {});
+                    _productBloc.add(AddToCart(productid: _listOfProduct[index].id));
                   },
                   iconSize: 20.0,
-                  backgroundColor: inCart ? Colors.green : Colors.black38),
+                  backgroundColor:
+                      pInCartExists ? Colors.green : Colors.black38),
             ),
           ],
         );
       }),
     );
+  }
+
+  bool inCart(String id) {
+    print(_cart.toString());
+    if (_cart != null) {
+      if (_cart.productIds.contains(id))
+        return true;
+      else
+        return false;
+    }else {
+      return false;
+    }
   }
 
   //method
