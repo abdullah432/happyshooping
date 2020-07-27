@@ -3,7 +3,7 @@ import 'package:happyshooping/models/product.dart';
 import 'package:meta/meta.dart';
 
 class ProductRepository {
-  var _url = 'http://192.168.10.3:9000/api/product/getProductsByStoreID';
+  var _url = 'http://192.168.10.4:9000/api/product/getProductsByStoreID';
 
   Future<List<Product>> loadProductsWithId({@required String id}) async {
     var url = _url + '/$id';

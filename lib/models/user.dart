@@ -1,4 +1,5 @@
 // import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:meta/meta.dart';
 
 class User {
   String id;
@@ -19,15 +20,33 @@ class User {
     return user;
   }
 
- User.fromJson(Map<String, dynamic> json) {
-      id = json["_id"];
-      name = json["name"];
-      email = json["email"];
-      pending = json["pending"];
-      approved = json["approved"];
-      totalEarning = json["total_earning"];
-      profileUrl = json["profile_url"];
+  User.fromJson(Map<String, dynamic> json) {
+    id = json["_id"];
+    name = json["name"];
+    email = json["email"];
+    pending = json["pending"];
+    approved = json["approved"];
+    totalEarning = json["total_earning"];
   }
+
+  // User.nonSignleton(
+  //     {@required this.id,
+  //     @required this.name,
+  //     @required this.email,
+  //     @required this.pending,
+  //     @required this.approved,
+  //     @required this.totalEarning});
+
+  // factory User.fromJson(Map<String, dynamic> json) {
+  //   return User.nonSignleton(
+  //     id: json["_id"],
+  //     name: json["name"],
+  //     email: json["email"],
+  //     pending: json["pending"],
+  //     approved: json["approved"],
+  //     totalEarning: json["total_earning"],
+  //   );
+  // }
 
   void clearUserData() {
     name = '';

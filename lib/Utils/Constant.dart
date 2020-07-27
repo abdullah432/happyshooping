@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class Constant {
   //padding
-  static const double lrSidePadding = 20.0;
+  static const double lrSidePadding = 15.0;
   static const double topSidePadding = 70.0;
   //font
   static double primaryTextSize = 19.0;

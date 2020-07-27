@@ -13,7 +13,7 @@ class UserRepository {
   //for web
   // var _url = 'http://localhost:9000/api/user/';
   //for mobile
-  var _url = 'http://192.168.10.3:9000/api/user/';
+  var _url = 'http://192.168.10.4:9000/api/user/';
 
   Future<String> authenticate(
       {@required String email, @required String password}) async {
@@ -128,8 +128,7 @@ class UserRepository {
       if (token != null && userid != null) {
         user.id = userid;
         return true;
-      }
-      else
+      } else
         return false;
     } catch (error) {
       print("hasToken exception: " + error.toString());
@@ -138,8 +137,70 @@ class UserRepository {
     }
   }
 
-  void loadUserData(id) async{
-    Response response = await Dio().post(_url+'/$id');
-    User.fromJson(response.data["data"]);
+  Future<String> getUserToken() async {
+    /// read from keystore/keychain
+    // Read value
+    try {
+      String token = await _storage.read(key: "token");
+      return token;
+    } catch (error) {
+      print("hasToken exception: " + error.toString());
+      print("Key is not store yet");
+      return error.message;
+    }
+  }
+
+  Future<void> loadUserData() async {
+    Response response = await Dio().post(_url + 'getUserDataByID/${user.id}');
+    fetchFromJSON2(response);
+    return;
+    //non singleton way
+    // Response response = await Dio().post(_url+'/${user.id}');
+    // return User.fromJson(response.data["data"]);
+  }
+
+  Future<void> updateName(String name) async {
+    try {
+      Response response = await Dio()
+          .patch(_url + 'updateName/${user.id}',
+          data: {"name": name},
+          );
+      fetchFromJSON2(response);
+      // var response = await http
+      //     .patch(_url + 'updateName/${user.id}',
+      //         headers: <String, String>{
+      //           'Content-Type': 'application/json; charset=UTF-8',
+      //           "auth-token": token
+      //         },
+      //         body: jsonEncode(<String, String>{'name': name}))
+      //     .timeout(Duration(seconds: 8));
+      // final jsonDecode = json.decode(response.body);
+      // fetchFromJSON(jsonDecode["data"][0]);
+      return;
+    } catch (error) {
+      print(error);
+      throw (error);
+    }
+  }
+
+  fetchFromJSON(Map<String, dynamic> json) {
+    // final json = response.data["data"][0];
+    print('json: ' + json["name"]);
+    user.name = json["name"];
+    user.email = json["email"];
+    user.pending = json["pending"];
+    user.approved = json["approved"];
+    user.totalEarning = json["total_earning"];
+  }
+
+  fetchFromJSON2(Response response) {
+    print(response);
+    final json = response.data["data"][0];
+    print('json: ' + json["name"]);
+    user.name = json["name"];
+    user.email = json["email"];
+    user.pending = json["pending"];
+    user.approved = json["approved"];
+    user.totalEarning = json["total_earning"];
   }
 }

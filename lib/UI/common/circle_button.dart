@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:happyshooping/Utils/Constant.dart';
 
 class CircleButton extends StatelessWidget {
   final GestureTapCallback onTap;
@@ -16,7 +17,8 @@ class CircleButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    return InkWell(
+      splashColor: Constant.primaryColor,
       onTap: onTap,
       child: Container(
         decoration: BoxDecoration(

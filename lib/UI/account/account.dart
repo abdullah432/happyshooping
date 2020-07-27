@@ -1,17 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:happyshooping/bloc/account/account_bloc.dart';
+import 'account_ui.dart';
 
-class AccountPage extends StatefulWidget {
-  @override
-  State<StatefulWidget> createState() {
-    return _AccountPageState();
-  }
-
-}
-
-class _AccountPageState extends State<AccountPage> {
+class AccountPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: Center(child: Text("Account"),),);
+    return BlocProvider<AccountBloc>(
+      create: (context) => AccountBloc()..add(FetchUserData()),
+      child: AccountUI(),
+    );
   }
-
 }
