@@ -1,9 +1,10 @@
 import 'package:dio/dio.dart';
+import 'package:happyshooping/Utils/Constant.dart';
 import 'package:happyshooping/models/cart.dart';
 import 'package:meta/meta.dart';
 
 class CartRepository {
-  var _url = 'http://192.168.10.4:9000/api/cart';
+  var _url = '${Constant.basicURL}/api/cart';
 
   Cart cart = Cart();
 

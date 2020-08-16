@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:happyshooping/Utils/Constant.dart';
 import 'package:happyshooping/models/user.dart';
 import 'package:http/http.dart' as http;
 import 'package:meta/meta.dart';
@@ -13,7 +14,7 @@ class UserRepository {
   //for web
   // var _url = 'http://localhost:9000/api/user/';
   //for mobile
-  var _url = 'http://192.168.10.4:9000/api/user/';
+  var _url = '${Constant.basicURL}/api/user/';
 
   Future<String> authenticate(
       {@required String email, @required String password}) async {

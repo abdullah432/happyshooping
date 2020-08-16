@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class Constant {
+  //URL
+  static const String basicURL = 'http://192.168.10.5:9000';
   //padding
   static const double lrSidePadding = 15.0;
   static const double topSidePadding = 70.0;

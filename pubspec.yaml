@@ -57,6 +57,7 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
      - assets/rive/checkbox.flr
+     - assets/images/cashback.png
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
@@ -77,6 +78,13 @@ flutter:
         - asset: assets/fonts/Montserrat-Medium.ttf
           weight: 500
         - asset: assets/fonts/Montserrat-Bold.ttf
+          weight: 700
+    - family: RobotoMono
+      fonts:
+        - asset: assets/fonts/RobotoMono-Regular.ttf
+        - asset: assets/fonts/RobotoMono-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/RobotoMono-Bold.ttf
           weight: 700
   #   - family: Trajan Pro
   #     fonts:

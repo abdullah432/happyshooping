@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:happyshooping/UI/account/account.dart';
+import 'package:happyshooping/UI/redeem/listofstores/listofstorespage.dart';
 import 'package:happyshooping/UI/submit_receipt/submit_receipt.dart';
 import 'package:happyshooping/Utils/Constant.dart';
 import 'package:flutter_icons/flutter_icons.dart';
@@ -24,7 +25,7 @@ class _HomeState extends State<Home> {
         index: _currentIndex,
         children: [
           HomePage(),
-          SubmitReceipt(),
+          StoresListPage(),
           AccountPage(),
         ],
       ),

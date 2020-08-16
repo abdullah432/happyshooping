@@ -1,10 +1,11 @@
 import 'dart:convert';
 
+import 'package:happyshooping/Utils/Constant.dart';
 import 'package:happyshooping/models/store.dart';
 import 'package:dio/dio.dart';
 
 class StoreRepository {
-  var _url = 'http://192.168.10.4:9000/api/store/getAllStores';
+  var _url = '${Constant.basicURL}/api/store/getAllStores';
 
   Future<List<Store>> loadStores() async {
     //DIO returns decoded MAP. not required to decode
