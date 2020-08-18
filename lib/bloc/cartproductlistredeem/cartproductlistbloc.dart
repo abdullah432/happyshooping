@@ -21,6 +21,7 @@ class CartProductsListBloc
   List<Product> productsList;
   //cashback count
   int collectCashback = 0;
+  List<String> products = List();
 
   @override
   Stream<CartProductsListState> mapEventToState(
@@ -49,16 +50,20 @@ class CartProductsListBloc
       }
     }
     if (event is CheckBoxClicked) {
-
+      //make list of products id. 
+      //so if user clicked on collectcashback so we can send selected products id to database
       if (checked[event.index]) {
         checked[event.index] = false;
         collectCashback = collectCashback - productsList[event.index].cashback;
+        products.remove(productsList[event.index].id);
       }else {
         checked[event.index] = true;
         collectCashback = collectCashback + productsList[event.index].cashback;
+        products.add(productsList[event.index].id);
       }
+
       yield CheckedBoxClickedHappened(
-          productsList: productsList, checked: checked, collectCashback: collectCashback);
+          productsList: productsList, checked: checked, collectCashback: collectCashback, products: products);
     }
   }
 }

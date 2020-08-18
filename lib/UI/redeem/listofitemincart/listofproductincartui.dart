@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:happyshooping/UI/common/circle_button.dart';
+import 'package:happyshooping/UI/redeem/uploadreceipt/uploadreceiptpage.dart';
 import 'package:happyshooping/Utils/Constant.dart';
 import 'package:happyshooping/bloc/cartproductlistredeem/cartproductlistbloc.dart';
 import 'package:happyshooping/models/product.dart';
@@ -37,7 +38,7 @@ class ListOfProductsInCartUIState extends State<ListOfProductsInCartUI> {
         }
         if (state is CheckedBoxClickedHappened) {
           return showCartProductsList(state.productsList, state.checked,
-              collectCashback: state.collectCashback);
+              collectCashback: state.collectCashback, products: state.products);
         }
         if (state is FetchCartProductsListFail)
           return Center(
@@ -49,17 +50,13 @@ class ListOfProductsInCartUIState extends State<ListOfProductsInCartUI> {
   }
 
   showCartProductsList(List<Product> productsList, List<bool> checked,
-      {int collectCashback}) {
+      {int collectCashback, List<String> products}) {
     return Stack(children: [
       //list of products in cart
       ListView.builder(
           itemCount: productsList.length,
           itemBuilder: (context, index) {
-            return GestureDetector(
-              onTap: () {
-                // navigateToTakePicturePage(storesList[index].id);
-              },
-              child: Padding(
+            return Padding(
                 padding:
                     const EdgeInsets.only(left: 12.0, right: 12.0, bottom: 8.0),
                 child: Column(children: [
@@ -126,32 +123,58 @@ class ListOfProductsInCartUIState extends State<ListOfProductsInCartUI> {
                         ]),
                       )),
                 ]),
-              ),
             );
           }),
       //bottom button
       Visibility(
-        visible: (collectCashback == null || collectCashback == 0) ? false : true,
-        child: Positioned(
-            bottom: 0,
-            left: 0,
-            right: 0,
-            child: Container(
-              // color: Colors.green,
-              decoration: new BoxDecoration(
-                  color: Colors.green,
-                  borderRadius: new BorderRadius.only(
-                    topLeft: const Radius.circular(8.0),
-                    topRight: const Radius.circular(8.0),
-                  )),
-              child: Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: Center(
-                    child: Text("Collect Cashback RS. $collectCashback",
-                        style: TextStyle(fontSize: 18.0))),
-              ),
-            )),
-      )
+          visible:
+              (collectCashback == null || collectCashback == 0) ? false : true,
+          child: Positioned(
+              bottom: 0,
+              left: 0,
+              right: 0,
+              child: Container(
+                  // color: Colors.green,
+                  decoration: new BoxDecoration(
+                      color: Colors.green,
+                      borderRadius: new BorderRadius.only(
+                        topLeft: const Radius.circular(8.0),
+                        topRight: const Radius.circular(8.0),
+                      )),
+                  child: GestureDetector(
+                    onTap: () {
+                      navigateToUploadReceiptPage(products, collectCashback);
+                    },
+                    child: Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: Center(
+                            child: RichText(
+                                text: TextSpan(
+                                    text: 'Collect Cashback ',
+                                    style: TextStyle(
+                                        color: Colors.black, fontSize: 18),
+                                    children: <TextSpan>[
+                              TextSpan(
+                                text: 'Rs. $collectCashback',
+                                style: TextStyle(fontWeight: FontWeight.bold),
+                              )
+                            ])))),
+                  ))))
     ]);
+  }
+
+  navigateToUploadReceiptPage(List<String> products, int collectCashback) {
+    // print('imagepath: ' + imagePath);
+    // print('storeid: ' + storeId);
+    // print('products: ' + products.toString());
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => UploadReceiptPage(
+                  imagePath: imagePath,
+                  storeId: storeId,
+                  products: products,
+                  collectCashback: collectCashback,
+                )));
   }
 }

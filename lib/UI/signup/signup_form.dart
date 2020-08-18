@@ -30,14 +30,6 @@ class _SignupState extends State<SignupForm> {
           backgroundColor: Colors.red,
         ));
       }
-
-      // if (state is NavigateToLoginPage) {
-      //   Navigator.pushReplacement(
-      //       context,
-      //       MaterialPageRoute(
-      //         builder: (context) => LoginPage(userRepository: _userRepository),
-      //       ));
-      // }
     }, child: BlocBuilder<SignupBloc, SignupState>(
       builder: (context, state) {
         return SingleChildScrollView(

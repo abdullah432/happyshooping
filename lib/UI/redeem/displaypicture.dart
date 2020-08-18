@@ -85,6 +85,6 @@ class DisplayPicturePageState extends State<DisplayPicturePage> {
 
   navigateToListOfProductInCartPage() {
     Navigator.push(context,
-        MaterialPageRoute(builder: (context) => ListOfProductsInCartPage()));
+        MaterialPageRoute(builder: (context) => ListOfProductsInCartPage(imagePath: imagePath, storeId: storeId,)));
   }
 }

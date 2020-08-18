@@ -64,6 +64,7 @@ flutter:
   assets:
      - assets/rive/checkbox.flr
      - assets/images/cashback.png
+     - assets/images/cashback2.png
      - lang/en.json
      - lang/ur.json
   #   - images/a_dot_ham.jpeg

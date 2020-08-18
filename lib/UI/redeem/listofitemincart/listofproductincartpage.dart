@@ -27,6 +27,6 @@ class ListOfProductsInCartPage extends StatelessWidget {
         body: BlocProvider<CartProductsListBloc>(
             create: (context) =>
                 CartProductsListBloc()..add(FetchCartProductsList()),
-            child: ListOfProductsInCartUI()));
+            child: ListOfProductsInCartUI(imagePath: imagePath, storeId: storeId,)));
   }
 }

@@ -8,13 +8,14 @@ abstract class CartProductsListState extends Equatable {
 
 class InitialCartProductsListState extends CartProductsListState {}
 
-class FetchingInProgress extends CartProductsListState { }
+class FetchingInProgress extends CartProductsListState {}
 
 class FetchCartProductsListSuccess extends CartProductsListState {
   //Each category is inside index of this list like at index one list of 'Near You' stores
   final productsList;
   final checked;
-  const FetchCartProductsListSuccess({@required this.productsList, @required this.checked});
+  const FetchCartProductsListSuccess(
+      {@required this.productsList, @required this.checked});
 
   @override
   List<Object> get props => [productsList, checked];
@@ -33,8 +34,14 @@ class CheckedBoxClickedHappened extends CartProductsListState {
   final productsList;
   final checked;
   final collectCashback;
-  const CheckedBoxClickedHappened({@required this.productsList, @required this.checked, @required this.collectCashback,});
+  final products;
+  const CheckedBoxClickedHappened({
+    @required this.productsList,
+    @required this.checked,
+    @required this.collectCashback,
+    @required this.products,
+  });
 
   @override
-  List<Object> get props => [productsList, checked, collectCashback];
+  List<Object> get props => [productsList, checked, collectCashback, products];
 }
