@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "712768201182",
+    "firebase_url": "https://happyshooping-a2bfa.firebaseio.com",
+    "project_id": "happyshooping-a2bfa",
+    "storage_bucket": "happyshooping-a2bfa.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:712768201182:android:7d607d52c447c5aefd3d4f",
+        "android_client_info": {
+          "package_name": "com.example.happyshooping"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "712768201182-gj71m5g262s27g64m8h8cdv3l5sd4ruo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD_btGSAoqF2mds5TF8ae-8QN4TlcOEUrs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "712768201182-gj71m5g262s27g64m8h8cdv3l5sd4ruo.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

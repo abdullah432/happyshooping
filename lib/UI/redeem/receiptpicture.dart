@@ -1,14 +1,37 @@
+import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
+import 'package:happyshooping/UI/redeem/camerascreen.dart';
 import 'package:happyshooping/Utils/Constant.dart';
 
 class TakeReceiptPicturePage extends StatefulWidget {
+  final storeId;
+  TakeReceiptPicturePage({@required this.storeId});
+
   @override
   State<StatefulWidget> createState() {
-    return TakeReceiptPicturePageState();
+    return TakeReceiptPicturePageState(storeId);
   }
 }
 
 class TakeReceiptPicturePageState extends State<TakeReceiptPicturePage> {
+  var storeId;
+  TakeReceiptPicturePageState(this.storeId);
+  //initialize camera
+  var firstCamera;
+  @override
+  void initState() {
+    loadCamerasList();
+    super.initState();
+  }
+
+  loadCamerasList() async {
+    // Obtain a list of the available cameras on the device.
+    final cameras = await availableCameras();
+
+    // Get a specific camera from the list of available cameras.
+    firstCamera = cameras.first;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -57,32 +80,42 @@ class TakeReceiptPicturePageState extends State<TakeReceiptPicturePage> {
               height: 50,
             ),
             //circular button with camera icon
-            Container(
-              decoration: BoxDecoration(
-                // color: Colors.white,
-                borderRadius: BorderRadius.all(Radius.circular(30)),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey.withOpacity(0.3),
-                    // spreadRadius: 1,
-                    blurRadius: 7,
-                    offset: Offset(0, 3), // changes position of shadow
-                  ),
-                ],
-              ),
-              child: ClipOval(
-                              child: Material(
-                  color: Colors.white, // button color
-                  child: InkWell(
-                    splashColor: Constant.primaryColor, // inkwell color
-                    child: SizedBox(
-                        width: 56, height: 56, child: Icon(Icons.camera_alt)),
-                    onTap: () {},
+            InkWell(
+              onTap: () {
+                print("hello");
+                navigateToCameraScreenPage();
+              },
+              splashColor: Constant.primaryColor,
+              child: Container(
+                decoration: BoxDecoration(
+                  // color: Colors.white,
+                  borderRadius: BorderRadius.all(Radius.circular(30)),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.3),
+                      // spreadRadius: 1,
+                      blurRadius: 7,
+                      offset: Offset(0, 3), // changes position of shadow
+                    ),
+                  ],
+                ),
+                child: ClipOval(
+                  child: Material(
+                    color: Colors.white, // button color/ inkwell color
+                      child: SizedBox(
+                          width: 56, height: 56, child: Icon(Icons.camera_alt)),
                   ),
                 ),
               ),
             ),
           ],
         ));
+  }
+
+  navigateToCameraScreenPage() {
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => CameraScreen(camera: firstCamera, storeId: storeId,)));
   }
 }

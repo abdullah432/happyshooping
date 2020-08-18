@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:happyshooping/UI/redeem/receiptpicture.dart';
 import 'package:happyshooping/Utils/Constant.dart';
-import 'package:happyshooping/bloc/storeslist/storeslistbloc.dart';
+import 'package:happyshooping/bloc/storeslistredeem/storeslistbloc.dart';
 import 'package:happyshooping/models/store.dart';
 
 class StoresListUI extends StatefulWidget {
@@ -40,7 +40,7 @@ class StoresListUIState extends State<StoresListUI> {
         itemBuilder: (context, index) {
           return GestureDetector(
             onTap: () {
-              navigateToTakePicturePage();
+              navigateToTakePicturePage(storesList[index].id);
             },
             child: Padding(
               padding: const EdgeInsets.all(12.0),
@@ -76,7 +76,7 @@ class StoresListUIState extends State<StoresListUI> {
         });
   }
 
-  navigateToTakePicturePage() {
-    Navigator.push(context, MaterialPageRoute(builder: (context) => TakeReceiptPicturePage()));
+  navigateToTakePicturePage(storeId) {
+    Navigator.push(context, MaterialPageRoute(builder: (context) => TakeReceiptPicturePage(storeId: storeId,)));
   }
 }
