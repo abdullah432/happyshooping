@@ -132,7 +132,7 @@ class _ProductListState extends State<ProductList> {
                       Flexible(
                           flex: 1,
                           child: Text(
-                            _listOfProduct[index].description,
+                            _listOfProduct[index].name,
                             maxLines: 2,
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(

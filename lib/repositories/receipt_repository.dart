@@ -13,15 +13,10 @@ class ReceiptRespository {
     @required List<String> products,
   }) async {
     try {
-      // userid: req.body.userid,
-      //   storeid: req.body.storeid,
-      //   receiptUrl: req.body.receiptUrl,
-      //   cashback: req.body.cashback,
-      //   products: req.body.products,
       var url = _url + '/addreceipt';
       Response response = await Dio().post(
         url,
-        data: {"userid": _user.id, "storeid": storeId, "receiptUrl": downloadUrl, "cashback": cashback, "products": products},
+        data: {"userid": _user.id, "username": _user.name, "storeid": storeId, "receiptUrl": downloadUrl, "cashback": cashback, "products": products, "no_of_products": products.length},
         options: Options(headers: {"Content-Type": "application/json"}),
       );
 

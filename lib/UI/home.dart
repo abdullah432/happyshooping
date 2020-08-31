@@ -19,39 +19,50 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Constant.customColor4,
-      body: IndexedStack(
-        index: _currentIndex,
-        children: [
-          HomePage(),
-          StoresListPage(),
-          AccountPage(),
-        ],
-      ),
-      bottomNavigationBar: 
-    ClipRRect(
-      borderRadius: BorderRadius.only(
-          topRight: Radius.circular(12), topLeft: Radius.circular(12)),
-      child: BottomNavigationBar(
-        elevation: 20.0,
-        showSelectedLabels: false,
-        showUnselectedLabels: false,
-        backgroundColor: Colors.white,
-        currentIndex: _currentIndex,
-        onTap: (index) {
-          setState(() {
-            _currentIndex = index;
-          });
-        },
-        items: [
-          BottomNavigationBarItem(
-              icon: new Icon(FlutterIcons.home_oct, size: 30,),title: Text('Home')),
-          BottomNavigationBarItem(
-              icon: new Icon(FlutterIcons.receipt_mdi, size: 30,), title: Text('Submit Receipt')),
-          BottomNavigationBarItem(
-              icon: new Icon(FlutterIcons.md_person_ion, size: 30,), title: Text('Account')),
-        ],
-      ),
-    ));
+        backgroundColor: Constant.customColor4,
+        body: IndexedStack(
+          index: _currentIndex,
+          children: [
+            HomePage(),
+            StoresListPage(),
+            AccountPage(),
+          ],
+        ),
+        bottomNavigationBar: ClipRRect(
+          borderRadius: BorderRadius.only(
+              topRight: Radius.circular(12), topLeft: Radius.circular(12)),
+          child: BottomNavigationBar(
+            elevation: 20.0,
+            showSelectedLabels: false,
+            showUnselectedLabels: false,
+            backgroundColor: Colors.white,
+            currentIndex: _currentIndex,
+            onTap: (index) {
+              setState(() {
+                _currentIndex = index;
+              });
+            },
+            items: [
+              BottomNavigationBarItem(
+                  icon: new Icon(
+                    FlutterIcons.home_oct,
+                    size: 30,
+                  ),
+                  label: 'Home'),
+              BottomNavigationBarItem(
+                  icon: new Icon(
+                    FlutterIcons.receipt_mdi,
+                    size: 30,
+                  ),
+                  label: 'Submit Receipt'),
+              BottomNavigationBarItem(
+                  icon: new Icon(
+                    FlutterIcons.md_person_ion,
+                    size: 30,
+                  ),
+                  label: 'Account'),
+            ],
+          ),
+        ));
   }
 }

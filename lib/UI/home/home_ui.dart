@@ -54,7 +54,7 @@ class _HomePageState extends State<HomeUI> {
       slivers: [
         SliverAppBar(
           floating: true,
-          title: Text('HappyShooping',
+          title: Text('BitCASH',
               style: TextStyle(color: Constant.primaryColor)),
           expandedHeight: 120,
           flexibleSpace: FlexibleSpaceBar(background: MyFlexibleSearchBar()),

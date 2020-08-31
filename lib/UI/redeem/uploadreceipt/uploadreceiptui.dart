@@ -141,9 +141,9 @@ class UploadReceiptUIState extends State<UploadReceiptUI> {
                     child: Text(
                       "Redeem another receipt",
                       style: TextStyle(
-                          fontSize: Constant.primaryTextSize,
-                          // color: Colors.white,
-                          ),
+                        fontSize: Constant.primaryTextSize,
+                        // color: Colors.white,
+                      ),
                     ),
                   ),
                 ),
@@ -170,9 +170,9 @@ class UploadReceiptUIState extends State<UploadReceiptUI> {
                     child: Text(
                       "Home Page",
                       style: TextStyle(
-                          fontSize: Constant.primaryTextSize,
-                          // color: Colors.white,
-                          ),
+                        fontSize: Constant.primaryTextSize,
+                        // color: Colors.white,
+                      ),
                     ),
                   ),
                 ),
@@ -186,7 +186,8 @@ class UploadReceiptUIState extends State<UploadReceiptUI> {
     FirebaseStorage _storage = FirebaseStorage.instance;
     File file = File(imagePath);
     //Create a reference to the location you want to upload to in firebase
-    StorageReference reference = _storage.ref().child("receipts/${path.basename(file.path)}");
+    StorageReference reference =
+        _storage.ref().child("receipts/${path.basename(file.path)}");
 
     //Upload the file to firebase
     StorageUploadTask uploadTask = reference.putFile(file);
@@ -239,12 +240,15 @@ class UploadReceiptUIState extends State<UploadReceiptUI> {
   }
 
   navigateToHomePage() {
-    Navigator.pushReplacement(
-        context, MaterialPageRoute(builder: (context) => Home()));
+    Navigator.of(context).pushAndRemoveUntil(
+        MaterialPageRoute(builder: (context) => Home()),
+        (Route<dynamic> route) => false);
   }
 
   navigateToListOfStoresPage() {
-    Navigator.pushReplacement(
-        context, MaterialPageRoute(builder: (context) => StoresListPage()));
+    Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(builder: (context) => StoresListPage()),
+        (Route<dynamic> route) => false);
   }
 }

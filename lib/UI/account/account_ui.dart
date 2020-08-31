@@ -216,7 +216,7 @@ class AccountUIState extends State<AccountUI> {
                           ),
                           Text(
                             // 'Rs 0.00',
-                            'Rs ${user.pending}',
+                            'Rs ${user.approved}',
                             style: TextStyle(
                                 color: Constant.highlightedColor, fontSize: 14),
                           ),
