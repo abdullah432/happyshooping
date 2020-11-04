@@ -134,7 +134,7 @@ class _ProductDetailState extends State<ProductDetail> {
                           ? FlutterIcons.md_checkmark_ion
                           : FlutterIcons.md_add_ion,
                       onTap: () async {
-                        // _productBloc.add(AddToCart(productid: _listOfProduct[index].id));
+                        // here direct approach is easier than bloc
                         String result = await _cartRepository
                             .addorRemoveCartListner(productID: _product.id);
                         print(result);

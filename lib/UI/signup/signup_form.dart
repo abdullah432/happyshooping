@@ -127,17 +127,17 @@ class _SignupState extends State<SignupForm> {
                 ),
                 state is SignupInProgress ? loadingIndicator() : Container(),
                 //sizedbox
-                SizedBox(
-                  height: Constant.secondarySizedBoxSize,
-                ),
-                //OR dividor
-                orDividor(),
-                //sizedbox
-                SizedBox(
-                  height: Constant.secondarySizedBoxSize,
-                ),
-                //facebook and google login button
-                facebookGoogleButtons(),
+                // SizedBox(
+                //   height: Constant.secondarySizedBoxSize,
+                // ),
+                // //OR dividor
+                // orDividor(),
+                // //sizedbox
+                // SizedBox(
+                //   height: Constant.secondarySizedBoxSize,
+                // ),
+                // //facebook and google login button
+                // facebookGoogleButtons(),
                 //sizedbox
                 SizedBox(
                   height: Constant.secondarySizedBoxSize,

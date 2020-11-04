@@ -101,7 +101,7 @@ class MyApp extends StatelessWidget {
               return SignupPage(
                 userRepository: _userRespository,
               );
-            }
+            } 
             // else if (state is AuthenticationInProgress)
             //   return LoadingIndicator();
             else

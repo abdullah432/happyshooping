@@ -69,4 +69,10 @@ class CustomSearchSliverHeader implements SliverPersistentHeaderDelegate {
 
   @override
   double get minExtent => expandedHeight;
+
+  @override
+  PersistentHeaderShowOnScreenConfiguration get showOnScreenConfiguration => null;
+
+  @override
+  TickerProvider get vsync => null;
 }

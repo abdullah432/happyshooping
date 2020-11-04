@@ -5,7 +5,7 @@ import 'package:happyshooping/models/store.dart';
 import 'package:meta/meta.dart';
 
 class SearchRepository {
-  var _url = '${Constant.basicURL}/api/search';
+  var _url = '${Constant.basicURL}/search';
   Future<List<Object>> searchMyText({@required String searchedText}) async {
     try {
       Response response = await Dio().post(

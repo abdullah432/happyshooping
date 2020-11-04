@@ -19,7 +19,7 @@ class _HomePageState extends State<HomeUI> {
   List<List<Store>> filteredCategoriesList = List();
 
   final List<String> _listOfCategories = <String>[
-    'Near You',
+    // 'Near You',
     'Grocery',
     'Clothes',
     'Electronics',

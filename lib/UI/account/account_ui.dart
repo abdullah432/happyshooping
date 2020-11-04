@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:happyshooping/UI/common/circle_button.dart';
+import 'package:happyshooping/UI/login/login_page.dart';
 import 'package:happyshooping/Utils/Constant.dart';
 import 'package:happyshooping/bloc/account/account_bloc.dart';
+import 'package:happyshooping/bloc/authentication/authentication_bloc.dart';
 import 'package:happyshooping/models/user.dart';
+import 'package:happyshooping/repositories/user_repository.dart';
 
 class AccountUI extends StatefulWidget {
   @override
@@ -46,6 +49,7 @@ class AccountUIState extends State<AccountUI> {
   @override
   Widget build(BuildContext context) {
     _accountBloc = BlocProvider.of<AccountBloc>(context);
+    _accountBloc.add(RecheckUserData());
 
     return BlocListener<AccountBloc, AccountState>(listener: (context, state) {
       if (state is UpdateUserNameFail) {
@@ -56,7 +60,6 @@ class AccountUIState extends State<AccountUI> {
       }
     }, child: BlocBuilder<AccountBloc, AccountState>(
       builder: (context, state) {
-        print(state);
         if (state is AccountPageInitial) {
           return Center(child: SpinKitPulse(size: 51.0, color: Colors.green));
         }
@@ -68,8 +71,10 @@ class AccountUIState extends State<AccountUI> {
                   style: TextStyle(color: Colors.red)));
         }
 
-        if (state is FetchUserDataSuccess || state is UpdateUserNameFail || state is UpdateUserNameSuccess) {
-          print(user.email);
+        if (state is FetchUserDataSuccess ||
+            state is UpdateUserNameFail ||
+            state is UpdateUserNameSuccess ||
+            state is NewDataFound) {
           _nameController.text = user.name;
           return GestureDetector(
               onTap: () {
@@ -145,7 +150,13 @@ class AccountUIState extends State<AccountUI> {
                                     },
                                   ),
                                 )
-                              : GestureDetector(onTap: () {_focusNode.requestFocus();},child: Icon(Icons.edit, size: 20, color: Constant.highlightedColor)),
+                              : GestureDetector(
+                                  onTap: () {
+                                    _focusNode.requestFocus();
+                                  },
+                                  child: Icon(Icons.edit,
+                                      size: 20,
+                                      color: Constant.highlightedColor)),
                         ],
                       ),
                       SizedBox(height: 8.0),
@@ -310,30 +321,37 @@ class AccountUIState extends State<AccountUI> {
       padding: const EdgeInsets.only(top: 8.0),
       child: Column(
         children: <Widget>[
-          Card(
-              shape: BeveledRectangleBorder(
-                borderRadius: BorderRadius.circular(10.0),
-              ),
-              color: Colors.white,
-              child: ListTile(
-                title: Text(
-                  'My Profile',
-                  style: TextStyle(color: Constant.highlightedColor),
+          GestureDetector(
+            onTap: () {
+              UserRepository _userRep = UserRepository();
+              _userRep.deleteToken();
+              _accountBloc.add(LogoutEvent());
+            },
+            child: Card(
+                shape: BeveledRectangleBorder(
+                  borderRadius: BorderRadius.circular(10.0),
                 ),
-                trailing: Icon(Icons.account_circle),
-              )),
-          Card(
-              shape: BeveledRectangleBorder(
-                borderRadius: BorderRadius.circular(10.0),
-              ),
-              color: Colors.white,
-              child: ListTile(
-                title: Text(
-                  'Referal',
-                  style: TextStyle(color: Constant.highlightedColor),
-                ),
-                trailing: Icon(Icons.credit_card),
-              )),
+                color: Colors.white,
+                child: ListTile(
+                  title: Text(
+                    'Log out',
+                    style: TextStyle(color: Constant.highlightedColor),
+                  ),
+                  trailing: Icon(Icons.logout),
+                )),
+          ),
+          // Card(
+          //     shape: BeveledRectangleBorder(
+          //       borderRadius: BorderRadius.circular(10.0),
+          //     ),
+          //     color: Colors.white,
+          //     child: ListTile(
+          //       title: Text(
+          //         'Referal',
+          //         style: TextStyle(color: Constant.highlightedColor),
+          //       ),
+          //       trailing: Icon(Icons.credit_card),
+          //     )),
         ],
       ),
     );

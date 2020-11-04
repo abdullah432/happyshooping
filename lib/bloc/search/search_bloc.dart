@@ -14,13 +14,16 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
   SearchRepository _searchRepository = SearchRepository();
   List<Object> listOfData = List();
 
+  //just to reload search ui
+  int count = 0;
+
   @override
   Stream<SearchState> mapEventToState(SearchEvent event) async* {
     try {
       if (event is SearchUserQuery) {
         listOfData = await _searchRepository.searchMyText(
             searchedText: event.searchText);
-        yield FetchSearchedDataSuccess(searchedResult: listOfData);
+        yield FetchSearchedDataSuccess(searchedResult: listOfData, count: count++);
       }
     } on SocketException catch (_) {
       yield FetchSearchedDataFail(

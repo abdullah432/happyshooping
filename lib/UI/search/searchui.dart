@@ -31,6 +31,7 @@ class _SearchUIPageState extends State<SearchUIPage> {
       }
 
       if (state is FetchSearchedDataSuccess) {
+        print('Search result lenght: '+state.searchedResult.length.toString());
         return searchBarAndResult(state.searchedResult);
       }
 
@@ -57,6 +58,7 @@ class _SearchUIPageState extends State<SearchUIPage> {
               //searchbar row
               searchBar(),
               //List of searched product
+              searchResult.length == 0 ? noResultFoundWidget() :
               Constant.isStore
                   ? displayListOfStores(searchResult)
                   : displayListOfProducts(searchResult),
@@ -166,6 +168,13 @@ class _SearchUIPageState extends State<SearchUIPage> {
             );
           }),
     );
+  }
+
+  noResultFoundWidget() {
+    return Center(child: Padding(
+      padding: const EdgeInsets.only(top: 30.0),
+      child: Text('No Result Found'),
+    ));
   }
 
   navigateToDisplayProductPage(sId, storename) {

@@ -5,7 +5,7 @@ import 'package:meta/meta.dart';
 
 class ReceiptRespository {
   User _user = User();
-  var _url = '${Constant.basicURL}/api/receipt';
+  var _url = '${Constant.basicURL}/receipt';
   Future<String> sendCashBackRequest({
     @required String downloadUrl,
     @required String storeId,

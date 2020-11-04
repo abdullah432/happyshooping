@@ -36,3 +36,11 @@ class UpdateUserNameFail extends AccountState {
   @override
   List<Object> get props => [error];
 }
+
+class NewDataFound extends AccountState {
+  final count;
+  const NewDataFound({@required this.count});
+
+  @override
+  List<Object> get props => [count];
+}

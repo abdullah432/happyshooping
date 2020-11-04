@@ -118,17 +118,17 @@ class _LoginState extends State<LoginForm> {
                 height: Constant.secondarySizedBoxSize,
               ),
               //OR dividor
-              orDividor(),
+              // orDividor(),
               //sizedbox
-              SizedBox(
-                height: Constant.secondarySizedBoxSize,
-              ),
+              // SizedBox(
+              //   height: Constant.secondarySizedBoxSize,
+              // ),
               //facebook and google login button
-              facebookGoogleButtons(),
+              // facebookGoogleButtons(),
               //sizedbox
-              SizedBox(
-                height: Constant.secondarySizedBoxSize,
-              ),
+              // SizedBox(
+              //   height: Constant.secondarySizedBoxSize,
+              // ),
               //new user? signup text widget
               newUserLabelText(),
               //sizedbox
@@ -153,93 +153,93 @@ class _LoginState extends State<LoginForm> {
     );
   }
 
-  orDividor() {
-    return Container(
-      width: double.infinity,
-      child: Row(
-        children: <Widget>[
-          Expanded(
-            flex: 1,
-            child: Divider(
-              color: Colors.black26,
-              height: 45,
-              thickness: 2,
-            ),
-          ),
-          Expanded(
-              flex: 1,
-              child: Center(
-                child: Text(
-                  'OR',
-                  // AppLocalizations.of(context).translate('OR'),
-                  style: TextStyle(
-                      fontWeight: FontWeight.bold, color: Colors.black26),
-                ),
-              )),
-          Expanded(
-            flex: 1,
-            child: Divider(
-              color: Colors.black26,
-              height: 45,
-              thickness: 2,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
+  // orDividor() {
+  //   return Container(
+  //     width: double.infinity,
+  //     child: Row(
+  //       children: <Widget>[
+  //         Expanded(
+  //           flex: 1,
+  //           child: Divider(
+  //             color: Colors.black26,
+  //             height: 45,
+  //             thickness: 2,
+  //           ),
+  //         ),
+  //         Expanded(
+  //             flex: 1,
+  //             child: Center(
+  //               child: Text(
+  //                 'OR',
+  //                 // AppLocalizations.of(context).translate('OR'),
+  //                 style: TextStyle(
+  //                     fontWeight: FontWeight.bold, color: Colors.black26),
+  //               ),
+  //             )),
+  //         Expanded(
+  //           flex: 1,
+  //           child: Divider(
+  //             color: Colors.black26,
+  //             height: 45,
+  //             thickness: 2,
+  //           ),
+  //         ),
+  //       ],
+  //     ),
+  //   );
+  // }
 
-  facebookGoogleButtons() {
-    return Center(
-      child: Container(
-        height: 50,
-        width: double.infinity,
-        child: Row(
-          children: <Widget>[
-            Expanded(
-                flex: 8,
-                child: RaisedButton(
-                  padding: EdgeInsets.all(13),
-                  color: Colors.white,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(25.0)),
-                  onPressed: () {
-                    // signInWithFacebook();
-                  },
-                  child: Text(
-                    'Facebook',
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 17,
-                        color: Constant.primaryColor),
-                  ),
-                )),
-            Spacer(
-              flex: 1,
-            ),
-            Expanded(
-                flex: 8,
-                child: RaisedButton(
-                  padding: EdgeInsets.all(13),
-                  color: Colors.white,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(25.0)),
-                  onPressed: () {
-                    // signInWithGoogle();
-                  },
-                  child: Text(
-                    'Google',
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 17,
-                        color: Constant.primaryColor),
-                  ),
-                )),
-          ],
-        ),
-      ),
-    );
-  }
+  // facebookGoogleButtons() {
+  //   return Center(
+  //     child: Container(
+  //       height: 50,
+  //       width: double.infinity,
+  //       child: Row(
+  //         children: <Widget>[
+  //           Expanded(
+  //               flex: 8,
+  //               child: RaisedButton(
+  //                 padding: EdgeInsets.all(13),
+  //                 color: Colors.white,
+  //                 shape: RoundedRectangleBorder(
+  //                     borderRadius: BorderRadius.circular(25.0)),
+  //                 onPressed: () {
+  //                   // signInWithFacebook();
+  //                 },
+  //                 child: Text(
+  //                   'Facebook',
+  //                   style: TextStyle(
+  //                       fontWeight: FontWeight.bold,
+  //                       fontSize: 17,
+  //                       color: Constant.primaryColor),
+  //                 ),
+  //               )),
+  //           Spacer(
+  //             flex: 1,
+  //           ),
+  //           Expanded(
+  //               flex: 8,
+  //               child: RaisedButton(
+  //                 padding: EdgeInsets.all(13),
+  //                 color: Colors.white,
+  //                 shape: RoundedRectangleBorder(
+  //                     borderRadius: BorderRadius.circular(25.0)),
+  //                 onPressed: () {
+  //                   // signInWithGoogle();
+  //                 },
+  //                 child: Text(
+  //                   'Google',
+  //                   style: TextStyle(
+  //                       fontWeight: FontWeight.bold,
+  //                       fontSize: 17,
+  //                       color: Constant.primaryColor),
+  //                 ),
+  //               )),
+  //         ],
+  //       ),
+  //     ),
+  //   );
+  // }
 
   newUserLabelText() {
     return Center(

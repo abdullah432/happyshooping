@@ -5,7 +5,7 @@ import 'package:happyshooping/models/store.dart';
 import 'package:dio/dio.dart';
 
 class StoreRepository {
-  var _url = '${Constant.basicURL}/api/store/getAllStores';
+  var _url = '${Constant.basicURL}/store/getAllStores';
 
   Future<List<Store>> loadStores() async {
     //DIO returns decoded MAP. not required to decode
@@ -25,11 +25,11 @@ class StoreRepository {
 
     List<List<Store>> filteredCategories = List();
     List<Store> filteredList;
-    filteredList = listOfStores
-        .where((store) => store.categories.contains('Near You'))
-        .toList();
+    // filteredList = listOfStores
+    //     .where((store) => store.categories.contains('Near You'))
+    //     .toList();
 
-    filteredCategories.add(filteredList);
+    // filteredCategories.add(filteredList);
 
     filteredList = listOfStores
         .where((store) => store.categories.contains('Grocery'))

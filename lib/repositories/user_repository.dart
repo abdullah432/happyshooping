@@ -14,7 +14,7 @@ class UserRepository {
   //for web
   // var _url = 'http://localhost:9000/api/user/';
   //for mobile
-  var _url = '${Constant.basicURL}/api/user/';
+  var _url = '${Constant.basicURL}/user/';
 
   Future<String> authenticate(
       {@required String email, @required String password}) async {
@@ -195,7 +195,6 @@ class UserRepository {
   }
 
   fetchFromJSON2(Response response) {
-    print(response);
     final json = response.data["data"][0];
     print('json: ' + json["name"]);
     user.name = json["name"];
@@ -203,5 +202,7 @@ class UserRepository {
     user.pending = json["pending"];
     user.approved = json["approved"];
     user.totalEarning = json["total_earning"];
+
+    print('approved: ${user.approved}');
   }
 }

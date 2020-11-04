@@ -11,10 +11,12 @@ class SearchInitial extends SearchState {}
 
 class FetchSearchedDataSuccess extends SearchState {
   final searchedResult;
-  const FetchSearchedDataSuccess({@required this.searchedResult});
+  //just reload ui
+  final count;
+  const FetchSearchedDataSuccess({@required this.searchedResult, @required this.count});
 
   @override
-  List<Object> get props => [searchedResult];
+  List<Object> get props => [searchedResult, count];
 }
 
 class FetchSearchedDataFail extends SearchState {

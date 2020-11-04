@@ -7,7 +7,7 @@ abstract class AccountEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class FetchUserData extends AccountEvent { }
+class FetchUserData extends AccountEvent {}
 
 class UpdateUserNameEvent extends AccountEvent { 
   final name;
@@ -16,3 +16,7 @@ class UpdateUserNameEvent extends AccountEvent {
   @override
   List<Object> get props => [name];
 }
+
+class RecheckUserData extends AccountEvent {}
+
+class LogoutEvent extends AccountEvent {}

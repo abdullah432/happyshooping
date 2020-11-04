@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class Constant {
   //URL
-  static const String basicURL = 'http://192.168.10.4:9000';
+  static const String basicURL = 'https://happyshooping.herokuapp.com/api';
   //search result status: Mean if user search store then isStore will be true else false
   static bool isStore; 
   //padding

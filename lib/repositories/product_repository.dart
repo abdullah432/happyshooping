@@ -5,7 +5,7 @@ import 'package:happyshooping/models/product.dart';
 import 'package:meta/meta.dart';
 
 class ProductRepository {
-  var _url = '${Constant.basicURL}/api/product';
+  var _url = '${Constant.basicURL}/product';
 
   Future<List<Product>> loadProductsWithStoreId({@required String storeID}) async {
     var url = _url + '/getProductsByStoreID/$storeID';
